@@ -11,11 +11,10 @@ call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" NeoBundle 'project.tar.gz'
-" NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'Lokaltog/vim-easymotion'
 " NeoBundle 'rhysd/clever-f.vim'
-"NeoBundleLazy 'Markdown'
-" NeoBundle 'matchit.zip'
+" NeoBundleLazy 'Markdown'
+NeoBundle 'matchit.zip'
 " NeoBundle 'airblade/vim-rooter'
 " NeoBundle 'sudo.vim'
 " NeoBundle 'kana/vim-fakeclip' 
@@ -35,9 +34,10 @@ NeoBundle 'therubymug/vim-pyte'
 NeoBundleLazy 'alpaca-tc/alpaca_tags', {
             \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
             \ 'autoload' : {
-            \   'commands' : ['Tags', 'TagsUpdate', 'TagsSet', 'TagsBundle', 'TagsCleanCache'],
+            \   'commands' : ['AlpacaTags', 'AlpacaTagsUpdate', 'AlpacaTagsSet', 'AlpacaTagsBundle', 'AlpacaTagsCleanCache'],
             \   'unite_sources' : ['tags']
             \ }}
+NeoBundle 'AndrewRadev/switch.vim'
 
 call neobundle#end()
 
@@ -88,15 +88,6 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vspli
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 au FileType ruby set nowrap tabstop=2 shiftwidth=2
-augroup AlpacaTags
-    autocmd!
-    if exists(':Tags')
-        autocmd BufWritePost * TagsUpdate ruby
-        autocmd BufWritePost Gemfile TagsBundle
-        autocmd BufEnter * TagsSet
-    endif
-augroup END
-
 
 """ vim-easymotion
 let g:EasyMotion_keys='hjklasdfHJKLASDFgyurtGYURTopqweOPQWEnmzxcvbNMZXCVB'
@@ -107,11 +98,30 @@ hi EasyMotionShade  ctermbg=black ctermfg=blue
 
 
 """ alpaca_tags
-let g:alpaca_tags_config = {
-            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,html,css',
+augroup AlpacaTags
+    autocmd!
+    if exists(':AlpacaTags')
+        autocmd BufWritePost Gemfile AlpacaTagsBundle
+        autocmd BufEnter * AlpacaTagsSet
+        autocmd BufWritePost * AlpacaTagsUpdate ruby
+    endif
+augroup END
+let g:alpaca_tags#config = {
+            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript,html,css',
+            \ 'js' : '--languages=+js',
+            \ '-js' : '--languages=-js,JavaScript',
+            \ 'vim' : '--languages=+Vim,vim',
+            \ '-vim' : '--languages=-Vim,vim',
+            \ 'php' : '--languages=+php',
+            \ '-style' : '--languages=-css,scss,js,JavaScript,html',
+            \ 'scss' : '--languages=+scss --languages=-css',
+            \ 'css' : '--languages=+css',
+            \ 'coffee' : '--languages=+coffee',
+            \ '-coffee' : '--languages=-coffee',
             \ 'ruby': '--languages=+Ruby',
+            \ 'bundle': '--languages=+Ruby',
             \ }
-let g:alpaca_tags_ctags_bin = '/usr/bin/ctags'
+let g:alpaca_tags#ctags_bin = '/usr/bin/ctags'
 nnoremap <silent> <expr> [unite]t ':<C-u>Unite tag -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
 autocmd BufEnter *
             \   if empty(&buftype)
@@ -134,3 +144,28 @@ inoremap <expr><C-l> neocomplete#complete_common_string()
 hi Pmenu ctermbg=Gray
 hi PmenuSel ctermbg=Red ctermfg=White
 hi PmenuSbar ctermbg=Gray
+
+
+""" matchit
+if !exists('loaded_matchit')
+    runtime macros/matchit.vim
+endif
+
+
+""" switch
+function! s:separate_definition_to_each_filetypes(ft_dictionary) "{{{
+    let result = {}
+
+    for [filetypes, value] in items(a:ft_dictionary)
+        for ft in split(filetypes, ',')
+            if !has_key(result, ft)
+                let result[ft] = []
+            endif
+
+            call extend(result[ft], copy(value))
+        endfor
+    endfor
+
+    return result
+endfunction"}}}
+nnoremap - :Switch<CR>
