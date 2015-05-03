@@ -1,0 +1,5 @@
+[user]
+	email = cookie-s@users.noreply.github.com
+	name = cookie-s
+[push]
+	default = tracking
