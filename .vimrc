@@ -12,7 +12,6 @@ call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Lokaltog/vim-easymotion'
-" NeoBundle 'rhysd/clever-f.vim'
 " NeoBundleLazy 'Markdown'
 NeoBundle 'matchit.zip'
 " NeoBundle 'airblade/vim-rooter'
@@ -38,6 +37,7 @@ NeoBundleLazy 'alpaca-tc/alpaca_tags', {
             \   'unite_sources' : ['tags']
             \ }}
 NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'tpope/vim-endwise'
 
 call neobundle#end()
 
