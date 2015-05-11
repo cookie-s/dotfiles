@@ -39,6 +39,11 @@ NeoBundleLazy 'alpaca-tc/alpaca_tags', {
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
 
+NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
+NeoBundle 'osyo-manga/vim-brightest'
+NeoBundle 'cookie-s/vim-unite-disas'
+
+
 call neobundle#end()
 
 
@@ -169,3 +174,13 @@ function! s:separate_definition_to_each_filetypes(ft_dictionary) "{{{
     return result
 endfunction"}}}
 nnoremap - :Switch<CR>
+
+
+""" brightest
+let g:brightest#highlight = {
+            \ "group" : "Cursor"
+            \}
+let g:brightest#enable_filetypes = {
+            \"_" : 0,
+            \"dis" : 1
+            \}

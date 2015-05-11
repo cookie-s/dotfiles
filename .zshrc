@@ -1,5 +1,5 @@
 autoload -U compinit
-compinit
+compinit -u
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
 #zstyle ':completion:*:default' menu select=3
@@ -12,16 +12,13 @@ setopt no_beep
 setopt numeric_glob_sort
 setopt extended_glob
 
-
 bindkey -v
-
-setopt auto_cd
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000000
 SAVEHIST=1000000000
 setopt extended_history
-setopt hist_ignore_dups
+setopt hist_ignore_all_dups
 setopt hist_ignore_space
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -70,9 +67,12 @@ alias ll="ls -l"
 alias la="ls -a"
 alias l="ls"
 alias hd="hexdump -C"
+alias bok="bokken `pwd`/"
 alias mv="mv -i"
 alias cp="cp -i"
 alias m="mikutter"
+alias unique="awk '!x[\$0]++'"
+
 
 alias dispoff="xset dpms force off"
 
