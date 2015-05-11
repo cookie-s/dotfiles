@@ -44,7 +44,7 @@ autoload -U promptinit && promptinit
 PURE_GIT_PULL=0
 PURE_PROMPT_SYMBOL='>>'
 prompt pure
-autoload -Uz git-escape-magic && git-escapemagic
+autoload -Uz git-escape-magic && git-escape-magic
 
 REPORTTIME=3
 
