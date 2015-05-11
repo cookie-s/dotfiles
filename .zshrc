@@ -41,6 +41,8 @@ setopt long_list_jobs
 
 autoload -Uz cd-gitroot
 autoload -U promptinit && promptinit
+PURE_GIT_PULL=0
+PURE_PROMPT_SYMBOL='>>'
 prompt pure
 
 REPORTTIME=3
