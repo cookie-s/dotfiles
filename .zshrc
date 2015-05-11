@@ -52,7 +52,7 @@ if [ ${UID} = 0 ]; then
     SPROMPT="\B\e[31m${SPROMPT}\e[m%b"
 fi
 if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
-    PROMPT="!remote! ${PROMPT}"
+    PROMPT="[R]${PROMPT}"
 fi
 
 
