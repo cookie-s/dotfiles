@@ -42,19 +42,19 @@ setopt ignore_eof
 autoload -U colors
 colors
 setopt re_match_pcre
+
 PROMPT="%(?..%{${bg[blue]}%})[%n@%m]%#%{${reset_color}%} "
 RPROMPT="%~"
 PROMPT2="%_%% "
-case ${UID} in
-    0)
-        PROMPT="\B\e[31m${PROMPT}\e[m%b"
-        PROMPT2="\B\e[31m${PROMPT2}\e[m%b"
-        SPROMPT="\B\e[31m${SPROMPT}\e[m%b"
-esac
+if [ ${UID} = 0 ]; then
+    PROMPT="\B\e[31m${PROMPT}\e[m%b"
+    PROMPT2="\B\e[31m${PROMPT2}\e[m%b"
+    SPROMPT="\B\e[31m${SPROMPT}\e[m%b"
+fi
+if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+    PROMPT="!remote! ${PROMPT}"
+fi
 
-alias beep="mplayer -ao jack /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
-
-alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 
 set-title() {
     print "\e]0;$1\a"
@@ -75,5 +75,5 @@ alias unique="awk '!x[\$0]++'"
 
 
 alias dispoff="xset dpms force off"
-
-# source $HOME/.rvm/scripts/rvm
+alias beep="mplayer -ao jack /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
+alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
