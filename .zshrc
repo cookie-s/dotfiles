@@ -40,6 +40,8 @@ setopt transient_rprompt
 setopt long_list_jobs
 
 autoload -Uz cd-gitroot
+autoload -U promptinit && promptinit
+prompt pure
 
 REPORTTIME=3
 
@@ -49,17 +51,17 @@ autoload -U colors
 colors
 setopt re_match_pcre
 
-PROMPT="%(?..%{${bg[blue]}%})[%n@%m]%#%{${reset_color}%} "
-RPROMPT="%~"
-PROMPT2="%_%% "
-if [ ${UID} = 0 ]; then
-    PROMPT="\B\e[31m${PROMPT}\e[m%b"
-    PROMPT2="\B\e[31m${PROMPT2}\e[m%b"
-    SPROMPT="\B\e[31m${SPROMPT}\e[m%b"
-fi
-if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
-    PROMPT="[R]${PROMPT}"
-fi
+#PROMPT="%(?..%{${bg[blue]}%})[%n@%m]%#%{${reset_color}%} "
+#RPROMPT="%~"
+#PROMPT2="%_%% "
+#if [ ${UID} = 0 ]; then
+#    PROMPT="\B\e[31m${PROMPT}\e[m%b"
+#    PROMPT2="\B\e[31m${PROMPT2}\e[m%b"
+#    SPROMPT="\B\e[31m${SPROMPT}\e[m%b"
+#fi
+#if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+#    PROMPT="[R]${PROMPT}"
+#fi
 
 
 set-title() {
