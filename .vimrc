@@ -184,3 +184,7 @@ let g:brightest#enable_filetypes = {
             \"_" : 0,
             \"dis" : 1
             \}
+
+
+""" unite-disas
+nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=disas disas<CR>
