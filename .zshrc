@@ -1,18 +1,14 @@
+fpath=($HOME/dotfiles/fpath $fpath)
+
 autoload -U compinit
 compinit -u
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
-#zstyle ':completion:*:default' menu select=3
 #zstyle ':completion:*:default' list-colors ""
+#zstyle ':completion:*:default' menu select=3
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 zstyle ':completion:*' use-cache yes
 setopt complete_in_word
-setopt hist_expand
-setopt no_beep
-setopt numeric_glob_sort
-setopt extended_glob
-
-bindkey -v
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000000
@@ -26,6 +22,14 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
+setopt auto_pushd
+setopt list_packed
+setopt no_beep
+setopt nolistbeep
+setopt hist_expand
+setopt numeric_glob_sort
+setopt extended_glob
+
 setopt inc_append_history
 setopt no_flow_control
 
@@ -34,6 +38,8 @@ setopt prompt_percent
 setopt transient_rprompt
 
 setopt long_list_jobs
+
+autoload -Uz cd-gitroot
 
 REPORTTIME=3
 
@@ -62,18 +68,33 @@ set-title() {
 
 export LANG=ja_JP.UTF-8
 
+bindkey -v
 alias ls="ls --color=auto -F"
+alias l="ls"
 alias ll="ls -l"
 alias la="ls -a"
-alias l="ls"
 alias hd="hexdump -C"
-alias bok="bokken `pwd`/"
 alias mv="mv -i"
 alias cp="cp -i"
-alias m="mikutter"
 alias unique="awk '!x[\$0]++'"
+alias cg='cd-gitroot'
 
-
-alias dispoff="xset dpms force off"
 alias beep="mplayer -ao jack /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
+
+alias -s html=chromium
+alias -s xhtml=chromium
+alias -s gif=feh
+alias -s jpg=feh
+alias -s jpeg=feh
+alias -s png=feh
+alias -s bmp=feh
+alias -s mp3=mplayer
+alias -s m4a=mplayer
+alias -s ogg=mplayer
+alias -s mp4=mplayer
+alias -s mpg=mplayer
+alias -s mpeg=mplayer
+alias -s flv=mplayer
+alias -s avi=mplayer
+
