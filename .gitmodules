@@ -1,0 +1,9 @@
+[submodule "pure"]
+	path = pure
+	url = git://github.com/sindresorhus/pure
+[submodule "zsh-git-escape-magic"]
+	path = zsh-git-escape-magic
+	url = git://github.com/knu/zsh-git-escape-magic
+[submodule "cd-gitroot"]
+	path = cd-gitroot
+	url = git://github.com/mollifier/cd-gitroot
