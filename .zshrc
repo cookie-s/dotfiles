@@ -105,3 +105,4 @@ alias -s mpeg=mplayer
 alias -s flv=mplayer
 alias -s avi=mplayer
 
+source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
