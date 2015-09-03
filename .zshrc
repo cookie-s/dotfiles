@@ -41,8 +41,9 @@ setopt long_list_jobs
 
 autoload -Uz cd-gitroot
 autoload -U promptinit && promptinit
-PURE_GIT_PULL=0
 PURE_PROMPT_SYMBOL='>>'
+PURE_GIT_DOWN_ARROW='v'
+PURE_GIT_UP_ARROW='^'
 prompt pure
 autoload -Uz git-escape-magic && git-escape-magic
 
@@ -83,6 +84,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias unique="awk '!x[\$0]++'"
 alias cg='cd-gitroot'
+alias gpp='g++'
 
 alias beep="mplayer -ao jack /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
