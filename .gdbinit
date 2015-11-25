@@ -1,1 +1,1 @@
-source ~/git/p3da/peda.py
+source ~/git/peda/peda.py

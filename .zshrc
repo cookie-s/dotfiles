@@ -72,8 +72,6 @@ set-title() {
     print "\e]0;$1\a"
 }
 
-export LANG=ja_JP.UTF-8
-
 bindkey -v
 alias ls="ls --color=auto -F"
 alias l="ls"
@@ -86,7 +84,8 @@ alias unique="awk '!x[\$0]++'"
 alias cg='cd-gitroot'
 alias gpp='g++'
 
-alias beep="mplayer -ao jack /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
+alias beep="mplayer /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
+alias dispoff="xset dpms force standby"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 
 alias -s html=chromium
@@ -104,5 +103,29 @@ alias -s mpg=mplayer
 alias -s mpeg=mplayer
 alias -s flv=mplayer
 alias -s avi=mplayer
+
+function l() {
+    if [[ ($# -eq 1 && -f "$1") || (-p /dev/stdin) ]]; then
+        less "$@"
+    else
+        ls -alF --color=auto "$@"
+    fi
+}
+
+function p() {
+    if [[ $# -gt 0 ]]; then
+        ps auxww | grep "$@"
+    else
+        ps aux
+    fi
+}
+
+function h() {
+    if [[ $# -gt 0 ]]; then
+        history | tac | sort -k2 -u | sort | grep "$@"
+    else
+        history 50
+    fi
+}
 
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
