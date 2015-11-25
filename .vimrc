@@ -25,21 +25,17 @@ if version > 702
     NeoBundle 'Shougo/vimproc'
     NeoBundle 'Shougo/vinarise'
     NeoBundle 'Shougo/vimshell'
+    NeoBundle 'Shougo/context_filetype.vim'
 endif
 "NeoBundle 't9md/vim-quickhl'
-" NeoBundle 't9md/vim-textmanip'
+"NeoBundle 't9md/vim-textmanip'
 "NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'therubymug/vim-pyte'
-NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-            \ 'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
-            \ 'autoload' : {
-            \   'commands' : ['AlpacaTags', 'AlpacaTagsUpdate', 'AlpacaTagsSet', 'AlpacaTagsBundle', 'AlpacaTagsCleanCache'],
-            \   'unite_sources' : ['tags']
-            \ }}
+NeoBundle 'alpaca-tc/alpaca_tags'
 NeoBundle 'AndrewRadev/switch.vim'
-NeoBundle 'tpope/vim-endwise'
+"NeoBundle 'tpope/vim-endwise'
 
 NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
 NeoBundle 'osyo-manga/vim-brightest'
@@ -113,30 +109,9 @@ augroup AlpacaTags
     if exists(':AlpacaTags')
         autocmd BufWritePost Gemfile AlpacaTagsBundle
         autocmd BufEnter * AlpacaTagsSet
-        autocmd BufWritePost * AlpacaTagsUpdate ruby
+        autocmd BufWritePost * AlpacaTagsUpdate
     endif
 augroup END
-let g:alpaca_tags#config = {
-            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript,html,css',
-            \ 'js' : '--languages=+js',
-            \ '-js' : '--languages=-js,JavaScript',
-            \ 'vim' : '--languages=+Vim,vim',
-            \ '-vim' : '--languages=-Vim,vim',
-            \ 'php' : '--languages=+php',
-            \ '-style' : '--languages=-css,scss,js,JavaScript,html',
-            \ 'scss' : '--languages=+scss --languages=-css',
-            \ 'css' : '--languages=+css',
-            \ 'coffee' : '--languages=+coffee',
-            \ '-coffee' : '--languages=-coffee',
-            \ 'ruby': '--languages=+Ruby',
-            \ 'bundle': '--languages=+Ruby',
-            \ }
-let g:alpaca_tags#ctags_bin = '/usr/bin/ctags'
-nnoremap <silent> <expr> [unite]t ':<C-u>Unite tag -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
-autocmd BufEnter *
-            \   if empty(&buftype)
-            \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-            \|  endif
 
 
 """ neocomplete
@@ -154,6 +129,13 @@ inoremap <expr><C-l> neocomplete#complete_common_string()
 hi Pmenu ctermbg=Gray
 hi PmenuSel ctermbg=Red ctermfg=White
 hi PmenuSbar ctermbg=Gray
+
+""" snippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 
 """ matchit
@@ -199,15 +181,17 @@ nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=disas disas<CR>
 nnoremap  z[     :<C-u>call <SID>put_foldmarker(0)<CR>
 nnoremap  z]     :<C-u>call <SID>put_foldmarker(1)<CR>
 function! s:put_foldmarker(foldclose_p) "{{{
-  let crrstr = getline('.')
-  let padding = crrstr=='' ? '' : crrstr=~'\s$' ? '' : ' '
-  let [cms_start, cms_end] = ['', '']
-  let outside_a_comment_p = synIDattr(synID(line('.'), col('$')-1, 1), 'name') !~? 'comment'
-  if outside_a_comment_p
-    let cms_start = matchstr(&cms,'\V\s\*\zs\.\+\ze%s')
-    let cms_end = matchstr(&cms,'\V%s\zs\.\+')
-  endif
-  let fmr = split(&fmr, ',')[a:foldclose_p]. (v:count ? v:count : '')
-  exe 'norm! A'. padding. cms_start. fmr. cms_end
+    let crrstr = getline('.')
+    let padding = crrstr=='' ? '' : crrstr=~'\s$' ? '' : ' '
+    let [cms_start, cms_end] = ['', '']
+    let outside_a_comment_p = synIDattr(synID(line('.'), col('$')-1, 1), 'name') !~? 'comment'
+    if outside_a_comment_p
+        let cms_start = matchstr(&cms,'\V\s\*\zs\.\+\ze%s')
+        let cms_end = matchstr(&cms,'\V%s\zs\.\+')
+    endif
+    let fmr = split(&fmr, ',')[a:foldclose_p]. (v:count ? v:count : '')
+    exe 'norm! A'. padding. cms_start. fmr. cms_end
 endfunction
 "}}}
+
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
