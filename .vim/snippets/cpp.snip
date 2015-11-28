@@ -1,0 +1,32 @@
+snippet head
+    #include <stdio.h>
+    #include <string.h>
+    #include <stdlib.h>
+    #include <algorithm>
+    
+    using namespace std;
+    
+    typedef long long int lli;
+    
+    ${0}
+
+snippet fori
+    for(int ${2:i}=${3:0}; $2<${1:n}; $2${4:++}) {
+        ${0}
+    }
+
+snippet wh
+    while(${1:true}) {
+        ${0}
+    }
+
+snippet scan
+    scanf("${1:%d}",${2:&n});
+    ${0}
+    
+snippet prinn
+    printf("${1:%d}\n"${2:,res});
+    ${0}
+snippet prin
+    printf("${1:%d}"${2:,res});
+    ${0}
