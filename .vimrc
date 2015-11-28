@@ -35,11 +35,12 @@ NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'therubymug/vim-pyte'
 NeoBundle 'alpaca-tc/alpaca_tags'
 NeoBundle 'AndrewRadev/switch.vim'
-"NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-endwise'
 
 NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
 NeoBundle 'osyo-manga/vim-brightest'
 NeoBundle 'cookie-s/vim-unite-disas'
+NeoBundle 'honza/vim-snippets'
 
 
 call neobundle#end()
@@ -134,8 +135,17 @@ hi PmenuSbar ctermbg=Gray
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
+imap <expr><TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:neosnippet#snippets_directory=['~/.vim/snippets/', '~/.vim/bundle/vim-snippets/snippets/']
+
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
 
 
 """ matchit
@@ -193,5 +203,3 @@ function! s:put_foldmarker(foldclose_p) "{{{
     exe 'norm! A'. padding. cms_start. fmr. cms_end
 endfunction
 "}}}
-
-let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
