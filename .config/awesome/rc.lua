@@ -11,10 +11,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
--- local widgets = require("widgets")
-local vicious = require("vicious")
-
--- local battery = require("awesome-batteryInfo/battery")
+local net_widgets = require("net_widgets")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -221,9 +218,9 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key( { modkey, "Control" }, "d", function() awful.util.spawn("dmenu_run") end),
-
-
+    awful.key( { modkey, "Control"}, "d", function() awful.util.spawn("dmenu_run") end),
+    awful.key( { modkey,          }, "l", function() awful.util.spawn("slock") end),
+    awful.key( { modkey,          }, "s", function() awful.util.spawn("slock &; systemctl suspend") end),
 
 
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -261,8 +258,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
+    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.005)    end),
+    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.005)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
@@ -349,7 +346,12 @@ for i = 1, 9 do
                               awful.client.toggletag(tag)
                           end
                       end
-                  end))
+                  end),
+        awful.key({ }, "Print", 
+                  function ()
+                      awful.util.spawn("scrot -e 'mv $f ~/screenshots 2>/dev/null'") 
+                  end)
+                  )
 end
 
 clientbuttons = awful.util.table.join(
@@ -365,7 +367,7 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
-    { rule = { },
+    { rule = { }, except = { name = "Call with ", class = "Skype" },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
@@ -378,6 +380,18 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { instance = "crx_menkifleemblimdogmoihpfopnplikde" }, -- LINE
+      properties = { tag = tags[1][5] } },
+    { rule = { instance = "chromium" },
+      properties = { tag = tags[1][3] } },
+    { rule = { class = "Mikutter.rb" },
+      properties = { tag = tags[1][2] } },
+    { rule = { name = "TopCoder", class = "net-sourceforge-jnlp-runtime-Boot" },
+      properties = { floating = true } },
+    { rule = { class = "Skype" },
+      properties = { tag = tags[1][4] } },
+    { rule = { name = "Call with ", class = "Skype" },
+      properties = { tags = {tags[1][1], tags[1][2], tags[1][3], tags[1][4] }, floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -460,4 +474,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- gears.wallpaper.centered("/home/cookies/.config/awesome/satori/201104082338496ae.jpg", nil, nil)
 gears.wallpaper.centered("/home/cookies/.config/awesome/XP.jpg", nil, nil)
+
 
