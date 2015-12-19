@@ -112,7 +112,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock()
+mytextclock = awful.widget.textclock(" %m/%d(%a) %H:%M ",30)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -184,6 +184,10 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 
+
+    net_wired = net_widgets.indicator({interfaces={"enp8s0"}, timeout=30})
+    net_wireless = net_widgets.wireless({interface="wlp7s0", timeout=30, popup_signal=true, indent=2})
+
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
@@ -195,6 +199,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
 --    right_layout:add(battery_widget)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(net_wireless)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -220,7 +225,7 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     awful.key( { modkey, "Control"}, "d", function() awful.util.spawn("dmenu_run") end),
     awful.key( { modkey,          }, "l", function() awful.util.spawn("slock") end),
-    awful.key( { modkey,          }, "s", function() awful.util.spawn("slock &; systemctl suspend") end),
+    awful.key( { modkey,          }, "s", function() awful.util.spawn_with_shell("slock &; systemctl suspend") end),
 
 
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -367,7 +372,7 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
-    { rule = { }, except = { name = "Call with ", class = "Skype" },
+    { rule = { }, 
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
