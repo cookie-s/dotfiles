@@ -42,6 +42,14 @@ NeoBundle 'osyo-manga/vim-brightest'
 NeoBundle 'cookie-s/vim-unite-disas'
 NeoBundle 'honza/vim-snippets'
 
+" http://qiita.com/mogulla3/items/42a7f6c73fa4a90b1df3
+NeoBundle 'marcus/rsense'
+NeoBundle 'supermomonga/neocomplete-rsense.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'yuku-t/vim-ref-ri'
+NeoBundle 'szw/vim-tags'
+
 
 call neobundle#end()
 
@@ -94,7 +102,6 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vspli
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-au FileType ruby set nowrap tabstop=2 shiftwidth=2
 
 """ vim-easymotion
 let g:EasyMotion_keys='hjklasdfHJKLASDFgyurtGYURTopqweOPQWEnmzxcvbNMZXCVB'
@@ -125,6 +132,10 @@ if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 inoremap <expr><C-g> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
 hi Pmenu ctermbg=Gray
@@ -203,3 +214,12 @@ function! s:put_foldmarker(foldclose_p) "{{{
     exe 'norm! A'. padding. cms_start. fmr. cms_end
 endfunction
 "}}}
+
+""" rsense
+let g:rsenseHome = '/opt/rsense-0.3'
+let g:rsenseUseOmniFunc = 1
+
+""" rubocop
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+
