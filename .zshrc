@@ -129,3 +129,7 @@ function h() {
 }
 
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+alias hdmiout="xrandr --output HDMI1 --auto"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

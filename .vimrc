@@ -33,7 +33,7 @@ endif
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tsukkee/unite-tag.git'
 NeoBundle 'therubymug/vim-pyte'
-NeoBundle 'alpaca-tc/alpaca_tags'
+
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
 
@@ -50,6 +50,16 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'yuku-t/vim-ref-ri'
 NeoBundle 'szw/vim-tags'
 
+
+NeoBundleLazy 'alpaca-tc/alpaca_tags', {
+            \ 'depends': ['Shougo/vimproc'],
+            \ 'autoload' : {
+            \   'commands' : [
+            \     { 'name' : 'AlpacaTagsBundle', 'complete': 'customlist,alpaca_tags#complete_source' },
+            \     { 'name' : 'AlpacaTagsUpdate', 'complete': 'customlist,alpaca_tags#complete_source' },
+            \     'AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsEnable', 'AlpacaTagsDisable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus',
+            \ ],
+            \ }}
 
 call neobundle#end()
 
@@ -71,6 +81,8 @@ set visualbell
 
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
+
+set laststatus=2
 
 set background=dark
 set t_Co=256
@@ -121,6 +133,22 @@ augroup AlpacaTags
     endif
 augroup END
 
+let g:alpaca_tags#config = {
+            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
+            \ 'js' : '--languages=+js',
+            \ '-js' : '--languages=-js,JavaScript',
+            \ 'vim' : '--languages=+Vim,vim',
+            \ 'php' : '--languages=+php',
+            \ '-vim' : '--languages=-Vim,vim',
+            \ '-style': '--languages=-css,scss,js,JavaScript,html',
+            \ 'scss' : '--languages=+scss --languages=-css',
+            \ 'css' : '--languages=+css',
+            \ 'java' : '--languages=+java $JAVA_HOME/src',
+            \ 'ruby': '--languages=+Ruby',
+            \ 'coffee': '--languages=+coffee',
+            \ '-coffee': '--languages=-coffee',
+            \ 'bundle': '--languages=+Ruby',
+            \ }
 
 """ neocomplete
 let g:acp_enableAtStartup=0

@@ -1,5 +1,5 @@
 export PATH=$PATH:$HOME/path
-export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin
+export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/heroku/bin
 export SHELL=/bin/zsh
