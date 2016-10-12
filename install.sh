@@ -6,5 +6,5 @@ ln -s dotfiles/.bashrc \
     dotfiles/.vimrc \
     dotfiles/.zshenv \
     dotfiles/.zshrc \
-    dotfiles/ .zlogin \
+    dotfiles/.zlogin \
     ~ -f
