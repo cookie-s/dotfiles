@@ -83,6 +83,7 @@ alias cp="cp -i"
 alias unique="awk '!x[\$0]++'"
 alias cg='cd-gitroot'
 alias gpp='g++'
+alias gdb='gdb -q'
 
 alias beep="mplayer /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
 alias dispoff="xset dpms force standby"
