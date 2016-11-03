@@ -29,6 +29,7 @@ endif
 "NeoBundle 't9md/vim-textmanip'
 "NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
+NeoBundle 'yuku-t/vim-ref-ri'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
@@ -42,9 +43,6 @@ NeoBundle 'cookie-s/vim-unite-disas'
 NeoBundle 'honza/vim-snippets'
 
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'yuku-t/vim-ref-ri'
 NeoBundle 'szw/vim-tags'
 
 
@@ -81,11 +79,10 @@ set laststatus=2
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
 
-
 set background=dark
 set t_Co=256
-
 colorscheme hybrid
+
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
 noremap <silent> <C-p> :bn<CR>
@@ -93,8 +90,8 @@ noremap <silent> <C-n> :bN<CR>
 nnoremap <Space>w :<C-u>w<CR>
 nnoremap <Space>q :<C-u>q<CR>
 nnoremap <Space>Q :<C-u>q!<CR>
-nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
-nnoremap <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
+nnoremap <silent> <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
+nnoremap <silent> <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
