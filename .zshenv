@@ -1,10 +1,10 @@
 export PATH=$PATH:$HOME/path
-export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:/usr/local/heroku/bin
+# export PATH=$PATH:/usr/local/heroku/bin
 export SHELL=/bin/zsh
 
-export BROWSER="chromium"
+hash chromium 2>/dev/null && export BROWSER="chromium"
+
 export PAGER="less"
 export LESS="-R"
 

@@ -12,11 +12,9 @@ call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Lokaltog/vim-easymotion'
-" NeoBundleLazy 'Markdown'
 NeoBundle 'matchit.zip'
-" NeoBundle 'airblade/vim-rooter'
-" NeoBundle 'sudo.vim'
-" NeoBundle 'kana/vim-fakeclip' 
+NeoBundle 'airblade/vim-rooter'
+NeoBundle 'sudo.vim'
 if version > 702
     NeoBundle 'Shougo/neocomplete'
     NeoBundle 'Shougo/neosnippet'
@@ -31,8 +29,9 @@ endif
 "NeoBundle 't9md/vim-textmanip'
 "NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'tsukkee/unite-tag.git'
-NeoBundle 'therubymug/vim-pyte'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'nanotech/jellybeans.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
@@ -42,9 +41,7 @@ NeoBundle 'osyo-manga/vim-brightest'
 NeoBundle 'cookie-s/vim-unite-disas'
 NeoBundle 'honza/vim-snippets'
 
-" http://qiita.com/mogulla3/items/42a7f6c73fa4a90b1df3
-NeoBundle 'marcus/rsense'
-NeoBundle 'supermomonga/neocomplete-rsense.vim'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'yuku-t/vim-ref-ri'
@@ -65,30 +62,33 @@ call neobundle#end()
 
 
 filetype plugin indent on
-syntax on
+syntax enable
 
 NeoBundleCheck
 
-set number
+set number ruler
 set fileencodings=iso-2022-jp,cp932,utf-8,euc-jp,default,latin
 set ignorecase smartcase hlsearch incsearch wrapscan
-set showmatch
-set smartindent shiftwidth=4 autoindent
-set smarttab tabstop=4 expandtab
+set noshowmatch
+set tabstop=4
+set expandtab softtabstop=0
+set cindent smarttab shiftwidth=4
 set cursorline
 set hidden
 set visualbell
+set laststatus=2
 
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
 
-set laststatus=2
 
 set background=dark
+set t_ut=
 set t_Co=256
 
-colorscheme darkblue
-" colorscheme pyte
+" colorscheme darkblue
+" delek zellner pablo solarized
+colorscheme hybrid
 
 noremap <silent> <C-j> :bn<CR>
 noremap <silent> <C-k> :bN<CR>
@@ -243,11 +243,12 @@ function! s:put_foldmarker(foldclose_p) "{{{
 endfunction
 "}}}
 
-""" rsense
-let g:rsenseHome = '/opt/rsense-0.3'
-let g:rsenseUseOmniFunc = 1
+""" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-""" rubocop
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
-let g:syntastic_ruby_checkers = ['rubocop']
-
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
