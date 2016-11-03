@@ -83,15 +83,24 @@ set directory=$HOME/.vimbackup
 
 
 set background=dark
-set t_ut=
 set t_Co=256
 
-" colorscheme darkblue
-" delek zellner pablo solarized
 colorscheme hybrid
 
-noremap <silent> <C-j> :bn<CR>
-noremap <silent> <C-k> :bN<CR>
+""" http://deris.hatenablog.jp/entry/2014/05/20/235807
+noremap <silent> <C-p> :bn<CR>
+noremap <silent> <C-n> :bN<CR>
+nnoremap <Space>w :<C-u>w<CR>
+nnoremap <Space>q :<C-u>q<CR>
+nnoremap <Space>Q :<C-u>q!<CR>
+nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
+nnoremap <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
+inoremap jk <Esc> ""
+
+
 
 """ quickrun
 let g:quickrun_config = {}
