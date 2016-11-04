@@ -20,6 +20,7 @@ if version > 702
     NeoBundle 'Shougo/vimproc'
     NeoBundle 'Shougo/vinarise'
     NeoBundle 'Shougo/vimshell'
+    NeoBundle 'Shougo/neco-vim'
     NeoBundle 'Shougo/context_filetype.vim'
 endif
 NeoBundle 'thinca/vim-quickrun'
@@ -35,6 +36,7 @@ NeoBundle 'airblade/vim-rooter'
 NeoBundle 'lervag/vimtex'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
+NeoBundle 'todesking/ruby_hl_lvar.vim'
 
 NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
 NeoBundle 'osyo-manga/vim-brightest'
@@ -191,6 +193,22 @@ endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 inoremap <expr><C-g> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+endfunction
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
 hi Pmenu ctermbg=Gray
 hi PmenuSel ctermbg=Red ctermfg=White
 hi PmenuSbar ctermbg=Gray
