@@ -11,9 +11,6 @@ call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'matchit.zip'
-NeoBundle 'airblade/vim-rooter'
 NeoBundle 'sudo.vim'
 if version > 702
     NeoBundle 'Shougo/neocomplete'
@@ -25,15 +22,17 @@ if version > 702
     NeoBundle 'Shougo/vimshell'
     NeoBundle 'Shougo/context_filetype.vim'
 endif
-"NeoBundle 't9md/vim-quickhl'
-"NeoBundle 't9md/vim-textmanip'
-"NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'yuku-t/vim-ref-ri'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'nanotech/jellybeans.vim'
 
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'matchit.zip'
+NeoBundle 'airblade/vim-rooter'
+
+NeoBundle 'lervag/vimtex'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
 
@@ -70,7 +69,7 @@ set ignorecase smartcase hlsearch incsearch wrapscan
 set noshowmatch
 set tabstop=4
 set expandtab softtabstop=0
-set cindent smarttab shiftwidth=4
+set smartindent cindent smarttab shiftwidth=4
 set cursorline
 set hidden
 set visualbell
@@ -82,6 +81,9 @@ set directory=$HOME/.vimbackup
 set background=dark
 set t_Co=256
 colorscheme hybrid
+hi Pmenu ctermbg=8
+hi PmenuSel ctermbg=12
+hi PmenuSbar ctermbg=0
 
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
@@ -100,8 +102,28 @@ inoremap jk <Esc> ""
 
 
 """ quickrun
-let g:quickrun_config = {}
-let g:quickrun_config._ = {'runner' : 'vimproc'}
+let g:quickrun_config = {
+            \ '_' : {
+            \   'runner' : 'vimproc',
+            \   'runner/vimproc/updatetime' : 60
+            \ },
+            \ 'tex' : {
+            \   'command' : 'latexmk',
+            \   'outputter' : 'error',
+            \   'outputter/error/success' : 'null',
+            \   'outputter/error/error' : 'quickfix',
+            \   'srcfile' : expand("%"),
+            \   'hook/sweep/files' : [
+            \       '%S:p:r.aux',
+            \       '%S:p:r.bbl',
+            \       '%S:p:r.blg',
+            \       '%S:p:r.dvi',
+            \       '%S:p:r.fdb_latexmk',
+            \       '%S:p:r.fls'
+            \       ],
+            \   'exec' : '%c %o %a %s'
+            \   }
+            \}
 
 
 """ unite.vim
@@ -162,14 +184,11 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_ignore_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 inoremap <expr><C-g> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
 hi Pmenu ctermbg=Gray
@@ -187,10 +206,6 @@ imap <expr><TAB>
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 let g:neosnippet#snippets_directory=['~/.vim/snippets/', '~/.vim/bundle/vim-snippets/snippets/']
-
-if has('conceal')
-    set conceallevel=2 concealcursor=niv
-endif
 
 
 """ matchit
@@ -258,3 +273,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
