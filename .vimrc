@@ -28,6 +28,7 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'yuku-t/vim-ref-ri'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'matchit.zip'
@@ -37,6 +38,9 @@ NeoBundle 'lervag/vimtex'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'todesking/ruby_hl_lvar.vim'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'edkolev/promptline.vim'
 
 NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
 NeoBundle 'osyo-manga/vim-brightest'
@@ -66,7 +70,7 @@ syntax enable
 NeoBundleCheck
 
 set number ruler
-set fileencodings=iso-2022-jp,cp932,utf-8,euc-jp,default,latin
+set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932,default,latin
 set ignorecase smartcase hlsearch incsearch wrapscan
 set noshowmatch
 set tabstop=4
@@ -74,9 +78,11 @@ set expandtab softtabstop=0
 set smartindent cindent smarttab shiftwidth=4
 set cursorline
 set hidden
+set lazyredraw
 set visualbell
 set laststatus=2
 
+set updatetime=3000
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
 
@@ -283,12 +289,14 @@ endfunction
 "}}}
 
 """ syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+""" airline
+let g:airline#extensions#tabline#enabled = 1
