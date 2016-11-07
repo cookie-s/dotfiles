@@ -40,7 +40,7 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'todesking/ruby_hl_lvar.vim'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'edkolev/promptline.vim'
+NeoBundle 'osyo-manga/vim-monster'
 
 NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
 NeoBundle 'osyo-manga/vim-brightest'
@@ -215,6 +215,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
 hi Pmenu ctermbg=Gray
 hi PmenuSel ctermbg=Red ctermfg=White
 hi PmenuSbar ctermbg=Gray

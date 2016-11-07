@@ -1,4 +1,7 @@
 #!/bin/bash
+
+mkdir -p ~/.vim ~/.vimbackup
+
 ln -s dotfiles/.bashrc \
     dotfiles/.gdbinit \
     dotfiles/.gitconfig \
@@ -7,4 +10,5 @@ ln -s dotfiles/.bashrc \
     dotfiles/.zshenv \
     dotfiles/.zshrc \
     dotfiles/.zlogin \
-    ~ -f
+    ~
+ln -s dotfiles/.vim/indent ~/.vim/
