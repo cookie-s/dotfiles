@@ -130,6 +130,10 @@ function h() {
     fi
 }
 
+function grt() {
+    git rev-parse --show-toplevel
+}
+
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias hdmiout="xrandr --output HDMI1 --auto"
