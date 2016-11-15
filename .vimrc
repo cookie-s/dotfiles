@@ -131,6 +131,10 @@ let g:quickrun_config = {
             \       ],
             \   'exec' : '%c %o %a %s'
             \   }
+            \ 'scheme' : {
+            \   'command' : 'guile'
+            \   'exec' : '%c'
+            \ }
             \}
 
 
