@@ -113,7 +113,12 @@ inoremap jk <Esc> ""
 let g:quickrun_config = {
             \ '_' : {
             \   'runner' : 'vimproc',
-            \   'runner/vimproc/updatetime' : 60
+            \   'runner/vimproc/updatetime' : 60,
+            \   'outputter' : 'error',
+            \   'outputter/error/success' : 'buffer',
+            \   'outputter/error/error' : 'quickfix',
+            \   'outputter/buffer/split' : ':rightbelow 8sp',
+            \   'outputter/buffer/close_on_empty' : 1,
             \ },
             \ 'tex' : {
             \   'command' : 'latexmk',
@@ -133,7 +138,6 @@ let g:quickrun_config = {
             \   },
             \ 'scheme' : {
             \   'command' : 'guile',
-            \   'exec' : '%c'
             \ }
             \}
 
@@ -306,3 +310,4 @@ let g:syntastic_check_on_wq = 0
 
 """ airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='luna'
