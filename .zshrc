@@ -73,7 +73,14 @@ set-title() {
 }
 
 bindkey -v
-alias ls="ls --color=auto -F"
+case "$OSTYPE" in
+    darwin*)
+        alias ls="ls -G -F"
+        ;;
+    linux*)
+        alias ls="ls --color=auto -F"
+        ;;
+esac
 alias l="ls"
 alias ll="ls -l"
 alias la="ls -a"

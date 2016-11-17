@@ -70,6 +70,7 @@ syntax enable
 NeoBundleCheck
 
 set number ruler
+set fileencoding=utf-8
 set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932,default,latin
 set ignorecase smartcase hlsearch incsearch wrapscan
 set noshowmatch
@@ -93,6 +94,12 @@ hi Pmenu ctermbg=8
 hi PmenuSel ctermbg=12
 hi PmenuSbar ctermbg=0
 
+
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >>
+vnoremap <S-Tab> <<
+nnoremap p ]p
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
 noremap <silent> <C-p> :bn<CR>
