@@ -130,9 +130,9 @@ let g:quickrun_config = {
             \       '%S:p:r.fls'
             \       ],
             \   'exec' : '%c %o %a %s'
-            \   }
+            \   },
             \ 'scheme' : {
-            \   'command' : 'guile'
+            \   'command' : 'guile',
             \   'exec' : '%c'
             \ }
             \}
