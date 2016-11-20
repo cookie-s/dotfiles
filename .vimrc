@@ -139,7 +139,8 @@ let g:quickrun_config = {
             \       '%S:p:r.blg',
             \       '%S:p:r.dvi',
             \       '%S:p:r.fdb_latexmk',
-            \       '%S:p:r.fls'
+            \       '%S:p:r.fls',
+            \       '%S:p:r.synctex.gz',
             \       ],
             \   'exec' : '%c %o %a %s'
             \   },

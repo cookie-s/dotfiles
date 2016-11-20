@@ -1,5 +1,9 @@
 #!/bin/bash
 
+git submodule init
+git submodule sync
+git submodule update
+
 mkdir -p ~/.vim ~/.vimbackup
 
 ln -s ~/dotfiles/.bashrc \
