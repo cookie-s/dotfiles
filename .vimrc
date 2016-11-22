@@ -33,6 +33,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'matchit.zip'
 NeoBundle 'airblade/vim-rooter'
+NeoBundle 'slim-template/vim-slim'
 
 NeoBundle 'lervag/vimtex'
 NeoBundle 'AndrewRadev/switch.vim'
