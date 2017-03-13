@@ -1,6 +1,6 @@
 export PATH=$PATH:$HOME/path
 export PATH=$PATH:/usr/local/bin
-# export PATH=$PATH:/usr/local/heroku/bin
+[[ -d '/usr/local/heroku' ]] && export PATH=$PATH:/usr/local/heroku/bin
 export SHELL=/bin/zsh
 
 hash chromium 2>/dev/null && export BROWSER="chromium"

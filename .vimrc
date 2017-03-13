@@ -1,9 +1,6 @@
 if !1 | finish | endif
 if has('vim_starting')
-    if &compatible
-        set nocompatible
-    endif
-
+    set nocompatible
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
@@ -16,40 +13,75 @@ if version > 702
     NeoBundle 'Shougo/neocomplete'
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'Shougo/neosnippet-snippets'
-    NeoBundle 'Shougo/unite.vim'
     NeoBundle 'Shougo/vimproc'
     NeoBundle 'Shougo/vinarise'
-    NeoBundle 'Shougo/vimshell'
     NeoBundle 'Shougo/neco-vim'
-    NeoBundle 'Shougo/context_filetype.vim'
+    NeoBundle 'Shougo/neoinclude.vim'
+    NeoBundleLazy 'Shougo/vimshell', {
+                \   'autoload' : { 'commands' : [ 'VimShellBufferDir' ] },
+                \   'depends': [ 'Shougo/vimproc' ],
+                \ }
+
+    NeoBundleLazy 'Shougo/unite.vim', {
+                \ 'autoload' : { 'commands' : [ 'Unite' ] },
+                \ }
+    let s:bundle = neobundle#get('unite.vim')
+    function! s:bundle.hooks.on_source(bundle)
+        let g:unite_enable_start_insert=1
+        au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+        au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+        au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+        au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+        au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+        au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+    endfunction
+    unlet s:bundle
 endif
+NeoBundle 'airblade/vim-rooter'
+NeoBundle 'cookie-s/project.vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'yuku-t/vim-ref-ri'
-NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'matchit.zip'
-NeoBundle 'airblade/vim-rooter'
 NeoBundle 'slim-template/vim-slim'
+NeoBundle 'embear/vim-localvimrc'
 
-NeoBundle 'lervag/vimtex'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
-NeoBundle 'todesking/ruby_hl_lvar.vim'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'osyo-manga/vim-monster'
+" NeoBundle 'osyo-manga/vim-monster'
+NeoBundleLazy 'todesking/ruby_hl_lvar.vim', { "autoload" : { 'filetypes' : ['ruby'] }, }
 
-NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
-NeoBundle 'osyo-manga/vim-brightest'
-NeoBundle 'cookie-s/vim-unite-disas'
-NeoBundle 'honza/vim-snippets'
+NeoBundleLazy 'shiracamus/vim-syntax-x86-objdump-d', { "autoload" : { 'filetypes' : ["dis"] }, }
+NeoBundleLazy 'osyo-manga/vim-brightest'
+let s:bundle = neobundle#get( 'vim-brightest' )
+function! s:bundle.hooks.on_source(bundle)
+    let g:brightest#highlight = {
+                \ "group" : "Cursor"
+                \}
+    let g:brightest#enable_filetypes = {
+                \"_" : 0,
+                \"dis" : 1
+                \}
+endfunction
+unlet s:bundle
+NeoBundleLazy 'cookie-s/vim-unite-disas', {
+            \ "autoload" : { 'filetypes' : ["dis"] },
+            \ "depends" : [ 'osyo-manga/vim-brightest' ],
+            \ }
 
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'szw/vim-tags'
+
+NeoBundleLazy "majutsushi/tagbar", {
+            \ "autoload": { "commands": ["TagbarToggle"] }}
+let s:bundle = neobundle#get('tagbar')
+function! s:bundle.hooks.on_source( bundle )
+    let g:tagbar_width = 40
+    " Map for toggle
+    nn <silent> <leader>t :TagbarToggle<CR>
+endfunction
 
 
 NeoBundleLazy 'alpaca-tc/alpaca_tags', {
@@ -61,6 +93,25 @@ NeoBundleLazy 'alpaca-tc/alpaca_tags', {
             \     'AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsEnable', 'AlpacaTagsDisable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus',
             \ ],
             \ }}
+let s:bundle = neobundle#get( 'alpaca_tags' )
+function! s:bundle.hooks.on_source( bundle )
+    let g:alpaca_tags#config = {
+                \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
+                \ 'js' : '--languages=+js',
+                \ '-js' : '--languages=-js,JavaScript',
+                \ 'vim' : '--languages=+Vim,vim',
+                \ 'php' : '--languages=+php',
+                \ '-vim' : '--languages=-Vim,vim',
+                \ '-style': '--languages=-css,scss,js,JavaScript,html',
+                \ 'scss' : '--languages=+scss --languages=-css',
+                \ 'css' : '--languages=+css',
+                \ 'java' : '--languages=+java $JAVA_HOME/src',
+                \ 'ruby': '--languages=+Ruby',
+                \ 'coffee': '--languages=+coffee',
+                \ '-coffee': '--languages=-coffee',
+                \ 'bundle': '--languages=+Ruby',
+                \ }
+endfunction
 
 call neobundle#end()
 
@@ -77,7 +128,7 @@ set ignorecase smartcase hlsearch incsearch wrapscan
 set noshowmatch
 set tabstop=4
 set expandtab softtabstop=0
-set smartindent cindent smarttab shiftwidth=4
+set smartindent smarttab shiftwidth=4
 set cursorline
 set hidden
 set lazyredraw
@@ -91,20 +142,16 @@ set directory=$HOME/.vimbackup
 set background=dark
 set t_Co=256
 colorscheme hybrid
-hi Pmenu ctermbg=8
-hi PmenuSel ctermbg=12
-hi PmenuSbar ctermbg=0
 
 
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 vnoremap <Tab> >>
 vnoremap <S-Tab> <<
-nnoremap p ]p
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
-noremap <silent> <C-p> :bn<CR>
-noremap <silent> <C-n> :bN<CR>
+nnoremap <silent> <C-p> :bN<CR>
+nnoremap <silent> <C-n> :bn<CR>
 nnoremap <Space>w :<C-u>w<CR>
 nnoremap <Space>q :<C-u>q<CR>
 nnoremap <Space>Q :<C-u>q!<CR>
@@ -115,6 +162,8 @@ nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 inoremap jk <Esc> ""
 
+nnoremap === gg=G<C-o><C-o>
+hi MatchParen ctermbg=red
 
 
 """ quickrun
@@ -147,26 +196,26 @@ let g:quickrun_config = {
             \   },
             \ 'scheme' : {
             \   'command' : 'guile',
-            \ }
+            \ },
+            \ 'ocaml' : {
+            \   'command' : 'ocaml',
+            \   'cmdopt' : '-rectypes',
+            \ },
             \}
 
 
-""" unite.vim
-let g:unite_enable_start_insert=1
-nnoremap [unite] <Nop>
-nmap ,u [unite]
-" バッファ一覧
-nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
-" ファイル一覧
-nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files file<CR>
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+""" project.vim
+let g:proj_flags = "imstcS"
+nmap \p <Plug>ToggleProject
+nnoremap \P :Project .vimproject<CR>
+autocmd BufAdd .vimproject silent! %foldopen!
+autocmd BufAdd .vimprojects silent! %foldopen!
+if getcwd() != $HOME
+    if filereadable(getcwd() . '/.vimproject')
+       autocmd VimEnter * Project .vimproject
+    endif
+endif
+
 
 """ vim-easymotion
 let g:EasyMotion_keys='hjklasdfHJKLASDFgyurtGYURTopqweOPQWEnmzxcvbNMZXCVB'
@@ -176,32 +225,6 @@ hi EasyMotionTarget ctermbg=black ctermfg=red
 hi EasyMotionShade  ctermbg=black ctermfg=blue
 
 
-""" alpaca_tags
-augroup AlpacaTags
-    autocmd!
-    if exists(':AlpacaTags')
-        autocmd BufWritePost Gemfile AlpacaTagsBundle
-        autocmd BufEnter * AlpacaTagsSet
-        autocmd BufWritePost * AlpacaTagsUpdate
-    endif
-augroup END
-
-let g:alpaca_tags#config = {
-            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
-            \ 'js' : '--languages=+js',
-            \ '-js' : '--languages=-js,JavaScript',
-            \ 'vim' : '--languages=+Vim,vim',
-            \ 'php' : '--languages=+php',
-            \ '-vim' : '--languages=-Vim,vim',
-            \ '-style': '--languages=-css,scss,js,JavaScript,html',
-            \ 'scss' : '--languages=+scss --languages=-css',
-            \ 'css' : '--languages=+css',
-            \ 'java' : '--languages=+java $JAVA_HOME/src',
-            \ 'ruby': '--languages=+Ruby',
-            \ 'coffee': '--languages=+coffee',
-            \ '-coffee': '--languages=-coffee',
-            \ 'bundle': '--languages=+Ruby',
-            \ }
 
 """ neocomplete
 let g:acp_enableAtStartup=0
@@ -234,9 +257,10 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
 endif
 let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
-hi Pmenu ctermbg=Gray
-hi PmenuSel ctermbg=Red ctermfg=White
-hi PmenuSbar ctermbg=Gray
+hi Pmenu ctermbg=0
+hi PmenuSel ctermbg=4
+hi PmenuSbar ctermbg=2
+hi PmenuThumb ctermfg=3
 
 """ snippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -258,7 +282,7 @@ endif
 
 
 """ switch
-function! s:separate_definition_to_each_filetypes(ft_dictionary) "{{{
+function! s:separate_definition_to_each_filetypes(ft_dictionary)
     let result = {}
 
     for [filetypes, value] in items(a:ft_dictionary)
@@ -272,19 +296,24 @@ function! s:separate_definition_to_each_filetypes(ft_dictionary) "{{{
     endfor
 
     return result
-endfunction"}}}
-nnoremap - :Switch<CR>
+endfunction
+nnoremap <silent> - :Switch<CR>
 
+""" alpaca_tags
+augroup AlpacaTags
+    autocmd!
+    if exists(':AlpacaTagsUpdate')
+        autocmd BufWritePost Gemfile AlpacaTagsBundle
+        autocmd BufEnter * AlpacaTagsSet
+        autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
+    endif
+augroup END
 
-""" brightest
-let g:brightest#highlight = {
-            \ "group" : "Cursor"
-            \}
-let g:brightest#enable_filetypes = {
-            \"_" : 0,
-            \"dis" : 1
-            \}
-
+""" unite
+nnoremap [unite] <Nop>
+nmap ,u [unite]
+nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
+nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files file<CR>
 
 """ unite-disas
 nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=disas disas<CR>
@@ -308,10 +337,6 @@ endfunction
 "}}}
 
 """ syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -320,3 +345,6 @@ let g:syntastic_check_on_wq = 0
 """ airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='luna'
+
+""" vim-localvimrc
+let g:localvimrc_ask = 0
