@@ -113,6 +113,8 @@ function! s:bundle.hooks.on_source( bundle )
                 \ }
 endfunction
 
+NeoBundleLazy 'stephpy/vim-php-cs-fixer', { "autoload" : { 'filetypes' : ['php'] }, }
+
 call neobundle#end()
 
 
@@ -143,11 +145,6 @@ set background=dark
 set t_Co=256
 colorscheme hybrid
 
-
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
-vnoremap <Tab> >>
-vnoremap <S-Tab> <<
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
 nnoremap <silent> <C-p> :bN<CR>
@@ -199,9 +196,11 @@ let g:quickrun_config = {
             \ },
             \ 'ocaml' : {
             \   'command' : 'ocaml',
-            \   'cmdopt' : '-rectypes',
             \ },
             \}
+let g:quickrun_no_default_key_mappings = 1
+nnoremap \r :cclose<CR>:QuickRun -mode n<CR>
+xnoremap \r :<C-U>cclose<CR>gv:QuickRun -mode v<CR>
 
 
 """ project.vim
@@ -336,11 +335,31 @@ function! s:put_foldmarker(foldclose_p) "{{{
 endfunction
 "}}}
 
+""" ocaml
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute 'set rtp+=' . g:opamshare . '/merlin/vim'
+execute 'set rtp^=' . g:opamshare . '/ocp-indent/vim'
+
 """ syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs = 1
+let g:syntastic_echo_current_error = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_enable_highlighting = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_mode_map = {
+  \ 'mode': 'active',
+  \ 'active_filetypes': ['php']
+  \}
+let g:syntastic_php_checkers = ['phpcs']
+let g:syntastic_php_phpcs_args = '--standard=psr2'
+
+let g:syntastic_ocaml_checkers = [g:opamshare . '/bin/ocamlmerlin']
 
 """ airline
 let g:airline#extensions#tabline#enabled = 1
@@ -348,3 +367,27 @@ let g:airline_theme='luna'
 
 """ vim-localvimrc
 let g:localvimrc_ask = 0
+
+
+""" vim-php-cs-fixer
+let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
+let g:php_cs_fixer_config = "default"                  " options: --config
+
+let g:php_cs_fixer_rules = "@Symfony"          " options: --rules (default:@PSR2)
+let g:php_cs_fixer_cache = ".php_cs.cache" " options: --cache-file
+"let g:php_cs_fixer_config_file = '.php_cs' " options: --config
+
+let g:php_cs_fixer_php_path = "php"
+" let g:php_cs_fixer_path = "~/cstap/php-cs-fixer.phar"
+let g:php_cs_fixer_enable_default_mapping = 0
+let g:php_cs_fixer_dry_run = 1
+let g:php_cs_fixer_verbose = 1
+
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+
+""" vim-rooter
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_manual_only = 1
+let g:rooter_use_lcd = 1
+

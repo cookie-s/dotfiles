@@ -1,5 +1,6 @@
 export PATH=$PATH:$HOME/path
 export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:$HOME/.config/composer/vendor/bin
 [[ -d '/usr/local/heroku' ]] && export PATH=$PATH:/usr/local/heroku/bin
 export SHELL=/bin/zsh
 

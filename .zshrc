@@ -81,7 +81,6 @@ case "$OSTYPE" in
         alias ls="ls --color=auto -F"
         ;;
 esac
-alias l="ls"
 alias ll="ls -l"
 alias la="ls -a"
 alias hd="hexdump -C"
@@ -92,9 +91,11 @@ alias cg='cd-gitroot'
 alias gpp='g++'
 alias gdb='gdb -q'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
+alias c-='cd -'
 
 alias beep="mplayer /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
 alias dispoff="xset dpms force standby"
+alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 
 alias -s html=chromium
@@ -143,8 +144,6 @@ function grt() {
 
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-alias hdmiout="xrandr --output HDMI1 --auto"
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 PATH="/home/cookies/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -152,3 +151,6 @@ PERL5LIB="/home/cookies/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5L
 PERL_LOCAL_LIB_ROOT="/home/cookies/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/cookies/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/cookies/perl5"; export PERL_MM_OPT;
+
+# OPAM configuration
+. /home/cookies/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
