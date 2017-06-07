@@ -391,3 +391,6 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
 
+if (filereadable(expand('~/.vimrc.local')))
+    so ~/.vimrc.local
+endif
