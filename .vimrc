@@ -114,6 +114,7 @@ function! s:bundle.hooks.on_source( bundle )
 endfunction
 
 NeoBundleLazy 'stephpy/vim-php-cs-fixer', { "autoload" : { 'filetypes' : ['php'] }, }
+NeoBundle 'editorconfig/editorconfig-vim'
 
 call neobundle#end()
 
