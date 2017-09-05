@@ -115,6 +115,7 @@ endfunction
 
 NeoBundleLazy 'stephpy/vim-php-cs-fixer', { "autoload" : { 'filetypes' : ['php'] }, }
 NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundleLazy 'leafgarland/typescript-vim', { "autoload" : { 'filetypes' : ["ts"] }, }
 
 call neobundle#end()
 
@@ -146,6 +147,7 @@ set background=dark
 set t_Co=256
 colorscheme hybrid
 
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
 nnoremap <silent> <C-p> :bN<CR>

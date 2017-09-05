@@ -16,3 +16,4 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.zlogin \
     ~
 ln -s ~/dotfiles/.vim/indent ~/.vim/
+ln -s ~/dotfiles/.vim/syntax ~/.vim/
