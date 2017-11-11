@@ -51,8 +51,6 @@ NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-" NeoBundle 'osyo-manga/vim-monster'
-NeoBundleLazy 'todesking/ruby_hl_lvar.vim', { "autoload" : { 'filetypes' : ['ruby'] }, }
 
 NeoBundleLazy 'shiracamus/vim-syntax-x86-objdump-d', { "autoload" : { 'filetypes' : ["dis"] }, }
 NeoBundleLazy 'osyo-manga/vim-brightest'
@@ -116,6 +114,9 @@ endfunction
 NeoBundleLazy 'stephpy/vim-php-cs-fixer', { "autoload" : { 'filetypes' : ['php'] }, }
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundleLazy 'leafgarland/typescript-vim', { "autoload" : { 'filetypes' : ["ts"] }, }
+
+NeoBundle 'prabirshrestha/async.vim'
+NeoBundle 'prabirshrestha/vim-lsp'
 
 call neobundle#end()
 
@@ -396,4 +397,15 @@ let g:rooter_use_lcd = 1
 
 if (filereadable(expand('~/.vimrc.local')))
     so ~/.vimrc.local
+endif
+
+""" language-server
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
 endif
