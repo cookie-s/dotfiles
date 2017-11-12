@@ -1,130 +1,69 @@
 if !1 | finish | endif
-if has('vim_starting')
+if &compatible
     set nocompatible
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim/
 
-call neobundle#begin(expand('~/.vim/bundle'))
+if dein#load_state('~/.vim/bundle')
+    call dein#begin('~/.vim/bundle')
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+    call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
-NeoBundle 'sudo.vim'
-if version > 702
-    NeoBundle 'Shougo/neocomplete'
-    NeoBundle 'Shougo/neosnippet'
-    NeoBundle 'Shougo/neosnippet-snippets'
-    NeoBundle 'Shougo/vimproc'
-    NeoBundle 'Shougo/vinarise'
-    NeoBundle 'Shougo/neco-vim'
-    NeoBundle 'Shougo/neoinclude.vim'
-    NeoBundleLazy 'Shougo/vimshell', {
-                \   'autoload' : { 'commands' : [ 'VimShellBufferDir' ] },
-                \   'depends': [ 'Shougo/vimproc' ],
-                \ }
+    call dein#add('vim-scripts/sudo.vim')
+    call dein#add('Shougo/neosnippet')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/vimproc')
+    call dein#add('Shougo/vinarise')
+    call dein#add('Shougo/neco-vim')
+    call dein#add('Shougo/neoinclude.vim')
+    call dein#add('Shougo/vimshell')
 
-    NeoBundleLazy 'Shougo/unite.vim', {
-                \ 'autoload' : { 'commands' : [ 'Unite' ] },
-                \ }
-    let s:bundle = neobundle#get('unite.vim')
-    function! s:bundle.hooks.on_source(bundle)
-        let g:unite_enable_start_insert=1
-        au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-        au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-        au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-        au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-        au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-        au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-    endfunction
-    unlet s:bundle
+    call dein#add('Shougo/unite.vim')
+
+    call dein#add('airblade/vim-rooter')
+    call dein#add('cookie-s/project.vim')
+    call dein#add('thinca/vim-quickrun')
+    call dein#add('w0ng/vim-hybrid')
+
+    call dein#add('Lokaltog/vim-easymotion')
+    call dein#add('vim-scripts/matchit.zip')
+    call dein#add('slim-template/vim-slim')
+    call dein#add('embear/vim-localvimrc')
+
+    call dein#add('AndrewRadev/switch.vim')
+    call dein#add('tpope/vim-endwise')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+
+    call dein#add('shiracamus/vim-syntax-x86-objdump-d')
+    call dein#add('osyo-manga/vim-brightest')
+    call dein#add('cookie-s/vim-unite-disas')
+    call dein#add('scrooloose/syntastic')
+
+    call dein#add("majutsushi/tagbar")
+    call dein#add('alpaca-tc/alpaca_tags')
+    call dein#add('stephpy/vim-php-cs-fixer')
+    call dein#add('editorconfig/editorconfig-vim')
+    call dein#add('leafgarland/typescript-vim')
+
+    "" has('python3')
+    call dein#add('Shougo/deoplete.nvim')
+    if !has('nvim')
+        call dein#add('roxma/nvim-yarp')
+        call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
+    call dein#add('autozimu/LanguageClient-neovim')
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('Shougo/echodoc.vim')
+
+    call dein#add('fatih/vim-go')
+
+    call dein#end()
+    call dein#save_state()
 endif
-NeoBundle 'airblade/vim-rooter'
-NeoBundle 'cookie-s/project.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'w0ng/vim-hybrid'
-
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'matchit.zip'
-NeoBundle 'slim-template/vim-slim'
-NeoBundle 'embear/vim-localvimrc'
-
-NeoBundle 'AndrewRadev/switch.vim'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-
-NeoBundleLazy 'shiracamus/vim-syntax-x86-objdump-d', { "autoload" : { 'filetypes' : ["dis"] }, }
-NeoBundleLazy 'osyo-manga/vim-brightest'
-let s:bundle = neobundle#get( 'vim-brightest' )
-function! s:bundle.hooks.on_source(bundle)
-    let g:brightest#highlight = {
-                \ "group" : "Cursor"
-                \}
-    let g:brightest#enable_filetypes = {
-                \"_" : 0,
-                \"dis" : 1
-                \}
-endfunction
-unlet s:bundle
-NeoBundleLazy 'cookie-s/vim-unite-disas', {
-            \ "autoload" : { 'filetypes' : ["dis"] },
-            \ "depends" : [ 'osyo-manga/vim-brightest' ],
-            \ }
-
-NeoBundle 'scrooloose/syntastic'
-
-NeoBundleLazy "majutsushi/tagbar", {
-            \ "autoload": { "commands": ["TagbarToggle"] }}
-let s:bundle = neobundle#get('tagbar')
-function! s:bundle.hooks.on_source( bundle )
-    let g:tagbar_width = 40
-    " Map for toggle
-    nn <silent> <leader>t :TagbarToggle<CR>
-endfunction
-
-
-NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-            \ 'depends': ['Shougo/vimproc'],
-            \ 'autoload' : {
-            \   'commands' : [
-            \     { 'name' : 'AlpacaTagsBundle', 'complete': 'customlist,alpaca_tags#complete_source' },
-            \     { 'name' : 'AlpacaTagsUpdate', 'complete': 'customlist,alpaca_tags#complete_source' },
-            \     'AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsEnable', 'AlpacaTagsDisable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus',
-            \ ],
-            \ }}
-let s:bundle = neobundle#get( 'alpaca_tags' )
-function! s:bundle.hooks.on_source( bundle )
-    let g:alpaca_tags#config = {
-                \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
-                \ 'js' : '--languages=+js',
-                \ '-js' : '--languages=-js,JavaScript',
-                \ 'vim' : '--languages=+Vim,vim',
-                \ 'php' : '--languages=+php',
-                \ '-vim' : '--languages=-Vim,vim',
-                \ '-style': '--languages=-css,scss,js,JavaScript,html',
-                \ 'scss' : '--languages=+scss --languages=-css',
-                \ 'css' : '--languages=+css',
-                \ 'java' : '--languages=+java $JAVA_HOME/src',
-                \ 'ruby': '--languages=+Ruby',
-                \ 'coffee': '--languages=+coffee',
-                \ '-coffee': '--languages=-coffee',
-                \ 'bundle': '--languages=+Ruby',
-                \ }
-endfunction
-
-NeoBundleLazy 'stephpy/vim-php-cs-fixer', { "autoload" : { 'filetypes' : ['php'] }, }
-NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundleLazy 'leafgarland/typescript-vim', { "autoload" : { 'filetypes' : ["ts"] }, }
-
-NeoBundle 'prabirshrestha/async.vim'
-NeoBundle 'prabirshrestha/vim-lsp'
-
-call neobundle#end()
-
 
 filetype plugin indent on
 syntax enable
-
-NeoBundleCheck
 
 set number ruler
 set fileencoding=utf-8
@@ -215,7 +154,7 @@ autocmd BufAdd .vimproject silent! %foldopen!
 autocmd BufAdd .vimprojects silent! %foldopen!
 if getcwd() != $HOME
     if filereadable(getcwd() . '/.vimproject')
-       autocmd VimEnter * Project .vimproject
+        autocmd VimEnter * Project .vimproject
     endif
 endif
 
@@ -226,44 +165,6 @@ let g:EasyMotion_leader_key=";"
 let g:EasyMotion_grouping=1
 hi EasyMotionTarget ctermbg=black ctermfg=red
 hi EasyMotionShade  ctermbg=black ctermfg=blue
-
-
-
-""" neocomplete
-let g:acp_enableAtStartup=0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_ignore_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <expr><C-l> neocomplete#complete_common_string()
-
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
-hi Pmenu ctermbg=0
-hi PmenuSel ctermbg=4
-hi PmenuSbar ctermbg=2
-hi PmenuThumb ctermfg=3
 
 """ snippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -303,13 +204,27 @@ endfunction
 nnoremap <silent> - :Switch<CR>
 
 """ alpaca_tags
+let g:alpaca_tags#config = {
+            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
+            \ 'js' : '--languages=+js',
+            \ '-js' : '--languages=-js,JavaScript',
+            \ 'vim' : '--languages=+Vim,vim',
+            \ 'php' : '--languages=+php',
+            \ '-vim' : '--languages=-Vim,vim',
+            \ '-style': '--languages=-css,scss,js,JavaScript,html',
+            \ 'scss' : '--languages=+scss --languages=-css',
+            \ 'css' : '--languages=+css',
+            \ 'java' : '--languages=+java $JAVA_HOME/src',
+            \ 'ruby': '--languages=+Ruby',
+            \ 'coffee': '--languages=+coffee',
+            \ '-coffee': '--languages=-coffee',
+            \ 'bundle': '--languages=+Ruby',
+            \ }
 augroup AlpacaTags
     autocmd!
-    if exists(':AlpacaTagsUpdate')
-        autocmd BufWritePost Gemfile AlpacaTagsBundle
-        autocmd BufEnter * AlpacaTagsSet
-        autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
-    endif
+    autocmd BufWritePost Gemfile AlpacaTagsBundle
+    autocmd BufEnter * AlpacaTagsSet
+    autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
 augroup END
 
 """ unite
@@ -357,9 +272,9 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_mode_map = {
-  \ 'mode': 'active',
-  \ 'active_filetypes': ['php']
-  \}
+            \ 'mode': 'active',
+            \ 'active_filetypes': ['php']
+            \}
 let g:syntastic_php_checkers = ['phpcs']
 let g:syntastic_php_phpcs_args = '--standard=psr2'
 
@@ -374,15 +289,13 @@ let g:localvimrc_ask = 0
 
 
 """ vim-php-cs-fixer
-let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
-let g:php_cs_fixer_config = "default"                  " options: --config
+let g:php_cs_fixer_level = "symfony"
+let g:php_cs_fixer_config = "default"
 
-let g:php_cs_fixer_rules = "@Symfony"          " options: --rules (default:@PSR2)
-let g:php_cs_fixer_cache = ".php_cs.cache" " options: --cache-file
-"let g:php_cs_fixer_config_file = '.php_cs' " options: --config
+let g:php_cs_fixer_rules = "@Symfony"
+let g:php_cs_fixer_cache = ".php_cs.cache"
 
 let g:php_cs_fixer_php_path = "php"
-" let g:php_cs_fixer_path = "~/cstap/php-cs-fixer.phar"
 let g:php_cs_fixer_enable_default_mapping = 0
 let g:php_cs_fixer_dry_run = 1
 let g:php_cs_fixer_verbose = 1
@@ -400,12 +313,29 @@ if (filereadable(expand('~/.vimrc.local')))
 endif
 
 """ language-server
+let g:LanguageClient_serverCommands = {
+            \ 'rust' : ['rustup', 'run', 'nightly', 'rls'],
+            \ 'ruby' : ['language_server-ruby'],
+            \ 'python' : ['pyls'],
+            \}
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
+""" vim-brightest
+let g:brightest#highlight = {
+            \ "group" : "Cursor"
+            \}
+let g:brightest#enable_filetypes = {
+            \ "_"   : 0,
+            \ "dis" : 1,
+            \}
+
+
+""" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+
+""" tag-bar
+let g:tagbar_width = 40
+nn <silent> <leader>t :TagbarToggle<CR>
