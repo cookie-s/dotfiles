@@ -81,6 +81,7 @@ case "$OSTYPE" in
         alias ls="ls --color=auto -F"
         ;;
 esac
+which nvim > /dev/null && alias vim="nvim"
 alias ll="ls -l"
 alias la="ls -a"
 alias hd="hexdump -C"
@@ -147,17 +148,11 @@ source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-PATH="/home/cookies/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/cookies/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/cookies/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/cookies/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/cookies/perl5"; export PERL_MM_OPT;
-
 # OPAM configuration
 . /home/cookies/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/cookies/google-cloud-sdk/path.zsh.inc' ]; then source '/home/cookies/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/cookies/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/cookies/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi

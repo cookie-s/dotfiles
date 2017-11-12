@@ -12,6 +12,7 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.tmux.conf \
     ~/dotfiles/.vimrc \
     ~/dotfiles/.zshenv \
+    ~/dotfiles/.zprofile \
     ~/dotfiles/.zshrc \
     ~/dotfiles/.zlogin \
     ~/dotfiles/.latexmkrc \

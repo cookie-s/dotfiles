@@ -1,8 +1,6 @@
-export PATH=$PATH:$HOME/path
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$HOME/.config/composer/vendor/bin
-[[ -d '/usr/local/heroku' ]] && export PATH=$PATH:/usr/local/heroku/bin
 export SHELL=/bin/zsh
+
+which rustc >/dev/null && export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 hash chromium 2>/dev/null && export BROWSER="chromium"
 
