@@ -46,13 +46,14 @@ if dein#load_state('~/.vim/bundle')
     call dein#add('editorconfig/editorconfig-vim')
     call dein#add('leafgarland/typescript-vim')
 
-    "" has('python3')
-    call dein#add('Shougo/deoplete.nvim')
-    if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
-        call dein#add('roxma/vim-hug-neovim-rpc')
+    if has('python3')
+        call dein#add('Shougo/deoplete.nvim')
+        if !has('nvim')
+            call dein#add('roxma/nvim-yarp')
+            call dein#add('roxma/vim-hug-neovim-rpc')
+        endif
+        call dein#add('autozimu/LanguageClient-neovim')
     endif
-    call dein#add('autozimu/LanguageClient-neovim')
     call dein#add('Shougo/denite.nvim')
     call dein#add('Shougo/echodoc.vim')
 
@@ -308,10 +309,6 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
 
-if (filereadable(expand('~/.vimrc.local')))
-    so ~/.vimrc.local
-endif
-
 """ language-server
 let g:LanguageClient_serverCommands = {
             \ 'rust' : ['rustup', 'run', 'nightly', 'rls'],
@@ -339,3 +336,10 @@ let g:deoplete#enable_at_startup = 1
 """ tag-bar
 let g:tagbar_width = 40
 nn <silent> <leader>t :TagbarToggle<CR>
+
+
+
+if (filereadable(expand('~/.vimrc.local')))
+    so ~/.vimrc.local
+endif
+
