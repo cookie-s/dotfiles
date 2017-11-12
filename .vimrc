@@ -51,8 +51,6 @@ NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-" NeoBundle 'osyo-manga/vim-monster'
-NeoBundleLazy 'todesking/ruby_hl_lvar.vim', { "autoload" : { 'filetypes' : ['ruby'] }, }
 
 NeoBundleLazy 'shiracamus/vim-syntax-x86-objdump-d', { "autoload" : { 'filetypes' : ["dis"] }, }
 NeoBundleLazy 'osyo-manga/vim-brightest'
@@ -114,6 +112,11 @@ function! s:bundle.hooks.on_source( bundle )
 endfunction
 
 NeoBundleLazy 'stephpy/vim-php-cs-fixer', { "autoload" : { 'filetypes' : ['php'] }, }
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundleLazy 'leafgarland/typescript-vim', { "autoload" : { 'filetypes' : ["ts"] }, }
+
+NeoBundle 'prabirshrestha/async.vim'
+NeoBundle 'prabirshrestha/vim-lsp'
 
 call neobundle#end()
 
@@ -145,6 +148,7 @@ set background=dark
 set t_Co=256
 colorscheme hybrid
 
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
 
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
 nnoremap <silent> <C-p> :bN<CR>
@@ -391,3 +395,17 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
 
+if (filereadable(expand('~/.vimrc.local')))
+    so ~/.vimrc.local
+endif
+
+""" language-server
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif

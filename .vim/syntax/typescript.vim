@@ -1,0 +1,1 @@
+../../../.vim/bundle/typescript-vim/syntax/typescript.vim
