@@ -13,3 +13,5 @@ GREPOPTIONS="--binary-files=without-match --directories=recurse --exclude=\*.tmp
 alias vi="vim"
 alias emacs="vim"
 export EDITOR="vim"
+
+export GOHOME=$HOME/go
