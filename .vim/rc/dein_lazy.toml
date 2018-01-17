@@ -1,0 +1,8 @@
+[[plugins]]
+repo = 'Shougo/vinarise'
+on_cmd = 'Vinarise'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+

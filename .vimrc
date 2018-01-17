@@ -2,65 +2,27 @@ if !1 | finish | endif
 if &compatible
     set nocompatible
 endif
-set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim/
 
-if dein#load_state('~/.vim/bundle')
-    call dein#begin('~/.vim/bundle')
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+execute 'set rtp+=' . s:dein_repo_dir
 
-    call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
 
-    call dein#add('vim-scripts/sudo.vim')
-    call dein#add('Shougo/neosnippet')
-    call dein#add('Shougo/neosnippet-snippets')
-    call dein#add('Shougo/vimproc')
-    call dein#add('Shougo/vinarise')
-    call dein#add('Shougo/neco-vim')
-    call dein#add('Shougo/neoinclude.vim')
-    call dein#add('Shougo/vimshell')
+    let s:rc_dir    = expand('~/.vim/rc')
+    let s:toml      = s:rc_dir . '/dein.toml'
+    let s:lazy_toml = s:rc_dir . '/dein_lazy.toml'
 
-    call dein#add('Shougo/unite.vim')
-
-    call dein#add('airblade/vim-rooter')
-    call dein#add('cookie-s/project.vim')
-    call dein#add('thinca/vim-quickrun')
-    call dein#add('w0ng/vim-hybrid')
-
-    call dein#add('Lokaltog/vim-easymotion')
-    call dein#add('vim-scripts/matchit.zip')
-    call dein#add('slim-template/vim-slim')
-    call dein#add('embear/vim-localvimrc')
-
-    call dein#add('AndrewRadev/switch.vim')
-    call dein#add('tpope/vim-endwise')
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('vim-airline/vim-airline-themes')
-
-    call dein#add('shiracamus/vim-syntax-x86-objdump-d')
-    call dein#add('osyo-manga/vim-brightest')
-    call dein#add('cookie-s/vim-unite-disas')
-    call dein#add('scrooloose/syntastic')
-
-    call dein#add("majutsushi/tagbar")
-    call dein#add('alpaca-tc/alpaca_tags')
-    call dein#add('stephpy/vim-php-cs-fixer')
-    call dein#add('editorconfig/editorconfig-vim')
-    call dein#add('leafgarland/typescript-vim')
-
-    if has('python3')
-        call dein#add('Shougo/deoplete.nvim')
-        if !has('nvim')
-            call dein#add('roxma/nvim-yarp')
-            call dein#add('roxma/vim-hug-neovim-rpc')
-        endif
-        call dein#add('autozimu/LanguageClient-neovim')
-    endif
-    call dein#add('Shougo/denite.nvim')
-    call dein#add('Shougo/echodoc.vim')
-
-    call dein#add('fatih/vim-go')
+    call dein#load_toml(s:toml,      {'lazy': 0})
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
     call dein#end()
     call dein#save_state()
+endif
+
+if !has('vim_starting') && dein#check_install()
+    call dein#install()
 endif
 
 filetype plugin indent on
@@ -228,14 +190,14 @@ augroup AlpacaTags
     autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
 augroup END
 
-""" unite
-nnoremap [unite] <Nop>
-nmap ,u [unite]
-nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
-nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files file<CR>
+""" denite
+nnoremap [denite] <Nop>
+nmap <Space>u [denite]
+nnoremap <silent> [denite]b :<C-u>Denite -buffer-name=buffer buffer<CR>
+nnoremap <silent> [denite]f :<C-u>Denite -buffer-name=files file<CR>
 
 """ unite-disas
-nnoremap <silent> [unite]j :<C-u>Unite -buffer-name=disas disas<CR>
+nnoremap <silent> [denite]j :<C-u>Denite -buffer-name=disas disas<CR>
 
 
 """ folding
@@ -310,15 +272,13 @@ let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
 
 """ language-server
-let g:LanguageClient_serverCommands = {
-            \ 'rust' : ['rustup', 'run', 'nightly', 'rls'],
-            \ 'ruby' : ['language_server-ruby'],
-            \ 'python' : ['pyls'],
-            \}
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+" let g:LanguageClient_serverCommands = {
+            " \ 'python' : ['pyls'],
+            " \}
+" let g:LanguageClient_autoStart = 1
+" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 """ vim-brightest
 let g:brightest#highlight = {
@@ -332,6 +292,9 @@ let g:brightest#enable_filetypes = {
 
 """ deoplete.nvim
 let g:deoplete#enable_at_startup = 1
+
+""" deoplete-rust
+let g:deoplete#sources#rust#rust_source_path = expand('~/.vim/rust/rust/src')
 
 """ tag-bar
 let g:tagbar_width = 40

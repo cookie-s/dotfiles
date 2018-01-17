@@ -1,0 +1,114 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+build= 'make'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+[[plugins]]
+repo = 'Shougo/vimshell'
+
+[[plugins]]
+repo = 'airblade/vim-rooter'
+
+[[plugins]]
+repo = 'vim-scripts/sudo.vim'
+
+[[plugins]]
+repo = 'cookie-s/project.vim'
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'Lokaltog/vim-easymotion'
+[[plugins]]
+repo = 'vim-scripts/matchit.zip'
+[[plugins]]
+repo = 'slim-template/vim-slim'
+[[plugins]]
+repo = 'embear/vim-localvimrc'
+
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+[[plugins]]
+repo = 'tpope/vim-endwise'
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'shiracamus/vim-syntax-x86-objdump-d'
+[[plugins]]
+repo = 'osyo-manga/vim-brightest'
+[[plugins]]
+repo = 'cookie-s/vim-unite-disas'
+[[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+[[plugins]]
+repo = 'alpaca-tc/alpaca_tags'
+[[plugins]]
+repo = 'stephpy/vim-php-cs-fixer'
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if   = '''has('python3')'''
+[[plugins]]
+repo = 'zchee/deoplete-go'
+build= 'make'
+
+if   = '''has('python3')'''
+[[plugins]]
+repo = 'Shougo/deoplete-rct'
+if   = '''has('python3')'''
+[[plugins]]
+repo = 'sebastianmarkow/deoplete-rust'
+if   = '''has('python3')'''
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+if   = '''! has('nvim')'''
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if   = '''! has('nvim')'''
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+if   = '''has('python3')'''
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+[[plugins]]
+repo = 'ujihisa/unite-colorscheme'
+[[plugins]]
+repo = 'Shougo/echodoc.vim'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+[[plugins]]
+repo = 'jvirtanen/vim-octave'
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
