@@ -3,3 +3,15 @@
 	name = cookie-s
 [push]
 	default = tracking
+[core]
+	editor = nvim
+[http]
+	sslVerify = true
+[gpg]
+	program = gpg2
+[commit]
+	gpgsign = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
