@@ -49,8 +49,6 @@ autoload -Uz git-escape-magic && git-escape-magic
 
 REPORTTIME=3
 
-setopt ignore_eof
-
 autoload -U colors
 colors
 setopt re_match_pcre
@@ -93,12 +91,15 @@ alias gpp='g++'
 alias gdb='gdb -q'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 alias c-='cd -'
+alias g++='clang++'
 
 alias beep="mplayer /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
 alias dispoff="xset dpms force standby"
 alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
-alias httpserv="ruby -rsinatra -e 'set :public_folder, \"./\", get(\"/\"){\"Hello world\"}'"
+alias httpserv="ruby -rsinatra -e 'set :bind, \"127.0.0.1\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
+alias httpserv-pub="ruby -rsinatra -e 'set :bind, \"0.0.0.0\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
+alias rusti='rustup run nightly-2016-08-01 ~/.cargo/bin/rusti'
 
 alias -s html=chromium
 alias -s xhtml=chromium
@@ -146,8 +147,6 @@ function grt() {
 
 source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 # OPAM configuration
 . /home/cookies/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
@@ -156,3 +155,10 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.local/bin"
