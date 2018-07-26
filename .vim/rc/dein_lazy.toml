@@ -6,3 +6,56 @@ on_cmd = 'Vinarise'
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+
+[[plugins]]
+repo = 'stephpy/vim-php-cs-fixer'
+on_ft = 'php'
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = 'typescript'
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+build= 'make'
+if   = '''has('python3')'''
+on_ft = 'go'
+hook_add = '''
+let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
+'''
+
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'sebastianmarkow/deoplete-rust'
+if   = '''has('python3')'''
+on_ft = 'rust'
+hook_add = '''
+let g:deoplete#sources#rust#racer_binary = '/home/cookies/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '/home/cookies/.vim/rust/rust/src'
+'''
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-clang'
+on_ft = ['c', 'cpp']
+hook_add = '''
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+'''
+
+[[plugins]]
+repo = 'vim-syntastic/syntastic'
+on_ft = ['php']

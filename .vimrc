@@ -28,11 +28,14 @@ endif
 filetype plugin indent on
 syntax enable
 
-set number ruler
+set number numberwidth=4
+set signcolumn=yes
+set ruler
 set fileencoding=utf-8
 set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932,default,latin
 set ignorecase smartcase hlsearch incsearch wrapscan
 set noshowmatch
+set noshowmode
 set tabstop=4
 set expandtab softtabstop=0
 set smartindent smarttab shiftwidth=4
@@ -120,14 +123,6 @@ if getcwd() != $HOME
         autocmd VimEnter * Project .vimproject
     endif
 endif
-
-
-""" vim-easymotion
-let g:EasyMotion_keys='hjklasdfHJKLASDFgyurtGYURTopqweOPQWEnmzxcvbNMZXCVB'
-let g:EasyMotion_leader_key=";"
-let g:EasyMotion_grouping=1
-hi EasyMotionTarget ctermbg=black ctermfg=red
-hi EasyMotionShade  ctermbg=black ctermfg=blue
 
 """ snippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -272,13 +267,15 @@ let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
 
 """ language-server
-" let g:LanguageClient_serverCommands = {
-            " \ 'python' : ['pyls'],
-            " \}
-" let g:LanguageClient_autoStart = 1
-" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+            \ 'ruby': ['solargraph', 'stdio'],
+            \ 'python': ['pyls'],
+            \}
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 """ vim-brightest
 let g:brightest#highlight = {
@@ -293,9 +290,6 @@ let g:brightest#enable_filetypes = {
 """ deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 
-""" deoplete-rust
-let g:deoplete#sources#rust#rust_source_path = expand('~/.vim/rust/rust/src')
-
 """ tag-bar
 let g:tagbar_width = 40
 nn <silent> <leader>t :TagbarToggle<CR>
@@ -306,3 +300,12 @@ if (filereadable(expand('~/.vimrc.local')))
     so ~/.vimrc.local
 endif
 
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
