@@ -55,6 +55,9 @@ colorscheme hybrid
 
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+
 """ http://deris.hatenablog.jp/entry/2014/05/20/235807
 nnoremap <silent> <C-p> :bN<CR>
 nnoremap <silent> <C-n> :bn<CR>
@@ -72,46 +75,6 @@ nnoremap === gg=G<C-o><C-o>
 hi MatchParen ctermbg=red
 
 
-""" quickrun
-let g:quickrun_config = {
-            \ '_' : {
-            \   'runner' : 'vimproc',
-            \   'runner/vimproc/updatetime' : 60,
-            \   'outputter' : 'error',
-            \   'outputter/error/success' : 'buffer',
-            \   'outputter/error/error' : 'quickfix',
-            \   'outputter/buffer/split' : ':rightbelow 8sp',
-            \   'outputter/buffer/close_on_empty' : 1,
-            \ },
-            \ 'tex' : {
-            \   'command' : 'latexmk',
-            \   'outputter' : 'error',
-            \   'outputter/error/success' : 'null',
-            \   'outputter/error/error' : 'quickfix',
-            \   'srcfile' : expand("%"),
-            \   'hook/sweep/files' : [
-            \       '%S:p:r.aux',
-            \       '%S:p:r.bbl',
-            \       '%S:p:r.blg',
-            \       '%S:p:r.dvi',
-            \       '%S:p:r.fdb_latexmk',
-            \       '%S:p:r.fls',
-            \       '%S:p:r.synctex.gz',
-            \       ],
-            \   'exec' : '%c %o %a %s'
-            \   },
-            \ 'scheme' : {
-            \   'command' : 'guile',
-            \ },
-            \ 'ocaml' : {
-            \   'command' : 'ocaml',
-            \ },
-            \}
-let g:quickrun_no_default_key_mappings = 1
-nnoremap \r :cclose<CR>:QuickRun -mode n<CR>
-xnoremap \r :<C-U>cclose<CR>gv:QuickRun -mode v<CR>
-
-
 """ project.vim
 let g:proj_flags = "imstcS"
 nmap \p <Plug>ToggleProject
@@ -123,19 +86,6 @@ if getcwd() != $HOME
         autocmd VimEnter * Project .vimproject
     endif
 endif
-
-""" snippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-imap <expr><TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-let g:neosnippet#snippets_directory=['~/.vim/snippets/', '~/.vim/bundle/vim-snippets/snippets/']
-
 
 """ matchit
 if !exists('loaded_matchit')
@@ -191,10 +141,6 @@ nmap <Space>u [denite]
 nnoremap <silent> [denite]b :<C-u>Denite -buffer-name=buffer buffer<CR>
 nnoremap <silent> [denite]f :<C-u>Denite -buffer-name=files file<CR>
 
-""" unite-disas
-nnoremap <silent> [denite]j :<C-u>Denite -buffer-name=disas disas<CR>
-
-
 """ folding
 nnoremap  z[     :<C-u>call <SID>put_foldmarker(0)<CR>
 nnoremap  z]     :<C-u>call <SID>put_foldmarker(1)<CR>
@@ -242,10 +188,6 @@ let g:syntastic_ocaml_checkers = [g:opamshare . '/bin/ocamlmerlin']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='luna'
 
-""" vim-localvimrc
-let g:localvimrc_ask = 0
-
-
 """ vim-php-cs-fixer
 let g:php_cs_fixer_level = "symfony"
 let g:php_cs_fixer_config = "default"
@@ -277,29 +219,11 @@ nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
-""" vim-brightest
-let g:brightest#highlight = {
-            \ "group" : "Cursor"
-            \}
-let g:brightest#enable_filetypes = {
-            \ "_"   : 0,
-            \ "dis" : 1,
-            \}
-
-
-""" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-
 """ tag-bar
 let g:tagbar_width = 40
 nn <silent> <leader>t :TagbarToggle<CR>
 
-
-
-if (filereadable(expand('~/.vimrc.local')))
-    so ~/.vimrc.local
-endif
-
+""" Jq
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
     if 0 == a:0
