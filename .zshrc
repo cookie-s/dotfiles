@@ -1,11 +1,8 @@
 fpath=($HOME/dotfiles/fpath $fpath)
 
-autoload -U compinit
-compinit -u
+autoload -U compinit && compinit -u
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
-#zstyle ':completion:*:default' list-colors ""
-#zstyle ':completion:*:default' menu select=3
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 zstyle ':completion:*' use-cache yes
 setopt complete_in_word
@@ -29,6 +26,8 @@ setopt nolistbeep
 setopt hist_expand
 setopt numeric_glob_sort
 setopt extended_glob
+setopt interactive_comments
+setopt magic_equal_subst
 
 setopt inc_append_history
 setopt no_flow_control
@@ -47,26 +46,26 @@ PURE_GIT_UP_ARROW='^'
 prompt pure
 autoload -Uz git-escape-magic && git-escape-magic
 
+if [ -d $HOME/dotfiles/fzf ]; then
+    source $HOME/dotfiles/fzf/shell/completion.zsh
+    source $HOME/dotfiles/fzf/shell/key-bindings.zsh
+    if which ag > /dev/null ; then
+        export FZF_DEFAULT_COMMAND='REPORTTIME='' ag --nocolor -g ""'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_DEFAULT_OPTS='
+        --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+        --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+        '
+    fi
+fi
+
 REPORTTIME=3
 
-autoload -U colors
-colors
+autoload -U colors && colors
 setopt re_match_pcre
 
-#PROMPT="%(?..%{${bg[blue]}%})[%n@%m]%#%{${reset_color}%} "
-#RPROMPT="%~"
-#PROMPT2="%_%% "
-#if [ ${UID} = 0 ]; then
-#    PROMPT="\B\e[31m${PROMPT}\e[m%b"
-#    PROMPT2="\B\e[31m${PROMPT2}\e[m%b"
-#    SPROMPT="\B\e[31m${SPROMPT}\e[m%b"
-#fi
-#if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
-#    PROMPT="[R]${PROMPT}"
-#fi
-
-
-set-title() {
+function set-title() {
     print "\e]0;$1\a"
 }
 
@@ -87,10 +86,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias unique="awk '!x[\$0]++'"
 alias cg='cd-gitroot'
-alias gpp='g++'
 alias gdb='gdb -q'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
-alias c-='cd -'
 alias g++='clang++'
 
 alias beep="mplayer /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
@@ -99,7 +96,6 @@ alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 alias httpserv="ruby -rsinatra -e 'set :bind, \"127.0.0.1\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
 alias httpserv-pub="ruby -rsinatra -e 'set :bind, \"0.0.0.0\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
-alias rusti='rustup run nightly-2016-08-01 ~/.cargo/bin/rusti'
 
 alias -s html=chromium
 alias -s xhtml=chromium
@@ -156,7 +152,7 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

@@ -13,3 +13,6 @@
 [submodule ".config/awesome/net_widgets"]
 	path = .config/awesome/net_widgets
 	url = https://github.com/plotnikovanton/net_widgets
+[submodule "fzf"]
+	path = fzf
+	url = git://github.com/junegunn/fzf
