@@ -49,7 +49,7 @@ autoload -Uz git-escape-magic && git-escape-magic
 if [ -d $HOME/dotfiles/fzf ]; then
     source $HOME/dotfiles/fzf/shell/completion.zsh
     source $HOME/dotfiles/fzf/shell/key-bindings.zsh
-    if which ag > /dev/null ; then
+    if which ag > /dev/null 2>&1 ; then
         export FZF_DEFAULT_COMMAND='REPORTTIME='' ag --nocolor -g ""'
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
         export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -78,7 +78,7 @@ case "$OSTYPE" in
         alias ls="ls --color=auto -F"
         ;;
 esac
-which nvim > /dev/null && alias vim="nvim"
+which nvim > /dev/null 2>&1 && alias vim="nvim"
 alias ll="ls -l"
 alias la="ls -a"
 alias hd="hexdump -C"
