@@ -17,6 +17,7 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.zlogin \
     ~/dotfiles/.latexmkrc \
     ~
+mkdir -p ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
 ln -s ~/dotfiles/.vim/indent \
     ~/dotfiles/.vim/syntax \
