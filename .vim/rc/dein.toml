@@ -99,6 +99,7 @@ repo = 'tpope/vim-sleuth'
 repo = 'embear/vim-localvimrc'
 hook_add = '''
 let g:localvimrc_ask = 0
+let g:localvimrc_sandbox=0
 '''
 
 [[plugins]]

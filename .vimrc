@@ -140,8 +140,11 @@ endfunction
 
 """ ocaml
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute 'set rtp+=' . g:opamshare . '/merlin/vim'
-execute 'set rtp^=' . g:opamshare . '/ocp-indent/vim'
+if 0 == v:shell_error
+    execute 'set rtp+=' . g:opamshare . '/merlin/vim'
+    execute 'set rtp^=' . g:opamshare . '/ocp-indent/vim'
+    let g:syntastic_ocaml_checkers = [g:opamshare . '/bin/ocamlmerlin']
+endif
 
 """ airline
 let g:airline#extensions#tabline#enabled = 1

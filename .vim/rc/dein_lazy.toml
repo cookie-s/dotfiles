@@ -25,6 +25,9 @@ on_ft = 'typescript'
 [[plugins]]
 repo = 'posva/vim-vue'
 on_ft = 'vue'
+hook_add = '''
+autocmd FileType vue syntax sync fromstart
+'''
 
 [[plugins]]
 repo = 'zchee/deoplete-go'
@@ -66,7 +69,7 @@ let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
 [[plugins]]
 repo = 'vim-syntastic/syntastic'
-on_ft = ['php']
+on_ft = ['php', 'ocaml']
 hook_add = '''
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -84,6 +87,4 @@ let g:syntastic_mode_map = {
             \}
 let g:syntastic_php_checkers = ['phpcs']
 let g:syntastic_php_phpcs_args = '--standard=psr2'
-
-let g:syntastic_ocaml_checkers = [g:opamshare . '/bin/ocamlmerlin']
 '''
