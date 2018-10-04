@@ -111,11 +111,39 @@ repo = 'vim-airline/vim-airline'
 repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
+hook_add = '''
+colorscheme hybrid
+'''
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = 'alpaca-tc/alpaca_tags'
+hook_add = '''
+let g:alpaca_tags#config = {
+            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
+            \ 'js' : '--languages=+js',
+            \ '-js' : '--languages=-js,JavaScript',
+            \ 'vim' : '--languages=+Vim,vim',
+            \ 'php' : '--languages=+php',
+            \ '-vim' : '--languages=-Vim,vim',
+            \ '-style': '--languages=-css,scss,js,JavaScript,html',
+            \ 'scss' : '--languages=+scss --languages=-css',
+            \ 'css' : '--languages=+css',
+            \ 'java' : '--languages=+java $JAVA_HOME/src',
+            \ 'ruby': '--languages=+Ruby',
+            \ 'coffee': '--languages=+coffee',
+            \ '-coffee': '--languages=-coffee',
+            \ 'bundle': '--languages=+Ruby',
+            \ }
+augroup AlpacaTags
+    autocmd!
+    autocmd BufWritePost Gemfile AlpacaTagsBundle
+    autocmd BufEnter * AlpacaTagsSet
+    autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
+augroup END
+'''
+
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 

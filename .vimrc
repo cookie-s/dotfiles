@@ -3,33 +3,38 @@ if &compatible
     set nocompatible
 endif
 
-let s:dein_dir = expand('~/.cache/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-execute 'set rtp+=' . s:dein_repo_dir
+if v:version >= 800
+    let s:dein_dir = expand('~/.cache/dein')
+    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+    execute 'set rtp+=' . s:dein_repo_dir
 
-if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
+    if dein#load_state(s:dein_dir)
+        call dein#begin(s:dein_dir)
 
-    let s:rc_dir    = expand('~/.vim/rc')
-    let s:toml      = s:rc_dir . '/dein.toml'
-    let s:lazy_toml = s:rc_dir . '/dein_lazy.toml'
+        let s:rc_dir    = expand('~/.vim/rc')
+        let s:toml      = s:rc_dir . '/dein.toml'
+        let s:lazy_toml = s:rc_dir . '/dein_lazy.toml'
 
-    call dein#load_toml(s:toml,      {'lazy': 0})
-    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+        call dein#load_toml(s:toml,      {'lazy': 0})
+        call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
-    call dein#end()
-    call dein#save_state()
-endif
+        call dein#end()
+        call dein#save_state()
+    endif
 
-if !has('vim_starting') && dein#check_install()
-    call dein#install()
+    if !has('vim_starting') && dein#check_install()
+        call dein#install()
+    endif
 endif
 
 filetype plugin indent on
 syntax enable
 
+if has("patch-7.4-2201")
+    set signcolumn=yes
+endif
+
 set number numberwidth=4
-set signcolumn=yes
 set ruler
 set fileencoding=utf-8
 set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932,default,latin
@@ -51,7 +56,6 @@ set directory=$HOME/.vimbackup
 
 set background=dark
 set t_Co=256
-colorscheme hybrid
 
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 
@@ -111,30 +115,6 @@ function! s:separate_definition_to_each_filetypes(ft_dictionary)
 endfunction
 nnoremap <silent> - :Switch<CR>
 
-""" alpaca_tags
-let g:alpaca_tags#config = {
-            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
-            \ 'js' : '--languages=+js',
-            \ '-js' : '--languages=-js,JavaScript',
-            \ 'vim' : '--languages=+Vim,vim',
-            \ 'php' : '--languages=+php',
-            \ '-vim' : '--languages=-Vim,vim',
-            \ '-style': '--languages=-css,scss,js,JavaScript,html',
-            \ 'scss' : '--languages=+scss --languages=-css',
-            \ 'css' : '--languages=+css',
-            \ 'java' : '--languages=+java $JAVA_HOME/src',
-            \ 'ruby': '--languages=+Ruby',
-            \ 'coffee': '--languages=+coffee',
-            \ '-coffee': '--languages=-coffee',
-            \ 'bundle': '--languages=+Ruby',
-            \ }
-augroup AlpacaTags
-    autocmd!
-    autocmd BufWritePost Gemfile AlpacaTagsBundle
-    autocmd BufEnter * AlpacaTagsSet
-    autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
-augroup END
-
 """ denite
 nnoremap [denite] <Nop>
 nmap <Space>u [denite]
@@ -162,27 +142,6 @@ endfunction
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute 'set rtp+=' . g:opamshare . '/merlin/vim'
 execute 'set rtp^=' . g:opamshare . '/ocp-indent/vim'
-
-""" syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_echo_current_error = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_enable_highlighting = 1
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_mode_map = {
-            \ 'mode': 'active',
-            \ 'active_filetypes': ['php']
-            \}
-let g:syntastic_php_checkers = ['phpcs']
-let g:syntastic_php_phpcs_args = '--standard=psr2'
-
-let g:syntastic_ocaml_checkers = [g:opamshare . '/bin/ocamlmerlin']
 
 """ airline
 let g:airline#extensions#tabline#enabled = 1
