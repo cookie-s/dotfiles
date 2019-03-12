@@ -185,8 +185,8 @@ for s = 1, screen.count() do
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 
 
-    net_wired = net_widgets.indicator({interfaces={"enp8s0"}, timeout=30})
-    net_wireless = net_widgets.wireless({interface="wlp7s0", timeout=30, popup_signal=true, indent=2})
+    net_wired = net_widgets.indicator({interfaces={"enp1s0f2"}, timeout=30})
+    net_wireless = net_widgets.wireless({interface="wlp2s0", timeout=30, popup_signal=true, indent=2})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -275,7 +275,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen.index]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
