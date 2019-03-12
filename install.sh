@@ -16,6 +16,8 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.zshrc \
     ~/dotfiles/.zlogin \
     ~/dotfiles/.latexmkrc \
+    ~/dotfiles/.Xresources \
+    ~/dotfiles/.xprofile \
     ~
 mkdir -p ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
