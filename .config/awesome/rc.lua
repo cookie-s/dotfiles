@@ -385,21 +385,14 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { instance = "crx_menkifleemblimdogmoihpfopnplikde" }, -- LINE
-      properties = { tag = tags[1][5] } },
+    { rule = { class = "Slack" },
+      properties = { tag = tags[1][2] } },
     { rule = { instance = "chromium" },
       properties = { tag = tags[1][3] } },
-    { rule = { class = "Mikutter.rb" },
-      properties = { tag = tags[1][2] } },
-    { rule = { name = "TopCoder", class = "net-sourceforge-jnlp-runtime-Boot" },
-      properties = { floating = true } },
     { rule = { class = "Skype" },
       properties = { tag = tags[1][4] } },
     { rule = { name = "Call with ", class = "Skype" },
       properties = { tags = {tags[1][1], tags[1][2], tags[1][3], tags[1][4] }, floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
