@@ -1,5 +1,3 @@
-[ -f ~/.zshenv.local ] && source ~/.zshenv.local
-
 export SHELL=/bin/zsh
 
 which rustc >/dev/null && export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
@@ -17,3 +15,5 @@ alias vim=$EDITOR
 alias emacs=$EDITOR
 
 export GOHOME=$HOME/go
+
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local
