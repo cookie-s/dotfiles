@@ -18,6 +18,7 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.latexmkrc \
     ~/dotfiles/.Xresources \
     ~/dotfiles/.xprofile \
+    ~/dotfiles/.gemrc \
     ~
 mkdir -p ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
