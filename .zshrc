@@ -88,7 +88,7 @@ alias cg='cd-gitroot'
 alias gdb='gdb -q'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 
-alias beep="mplayer /opt/mikutter/core/skin/data/sounds/mikuxtu.wav > /dev/null 2>&1"
+alias beep="mplayer ~cookies/1up.wav > /dev/null 2>&1"
 alias dispoff="xset dpms force standby"
 alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
