@@ -63,7 +63,6 @@ fi
 REPORTTIME=3
 
 autoload -U colors && colors
-setopt re_match_pcre
 
 function set-title() {
     print "\e]0;$1\a"
