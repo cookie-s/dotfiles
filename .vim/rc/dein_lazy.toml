@@ -11,6 +11,10 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
 [[plugins]]
+repo = 'vim-scripts/sh.vim--Cla'
+on_ft = 'sh'
+
+[[plugins]]
 repo = 'elzr/vim-json'
 on_ft = 'json'
 
