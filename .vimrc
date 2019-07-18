@@ -195,3 +195,7 @@ function! s:Jq(...)
     endif
     execute "%! jq \"" . l:arg . "\""
 endfunction
+
+if filereadable(expand($HOME.'/.vimrc.local'))
+  source $HOME/.vimrc.local
+endif

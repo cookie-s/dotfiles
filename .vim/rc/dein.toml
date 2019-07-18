@@ -180,6 +180,52 @@ build = 'sh install.sh'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
+hook_add = '''
+" https://qiita.com/hrsh7th@github/items/e405b4f4228e10a43201
+let s:ignore_globs = ['.git', '.svn', 'node_modules']
+call denite#custom#var('file/rec', 'command', [
+      \ 'ag',
+      \ '--follow',
+      \ ] + map(deepcopy(s:ignore_globs), { k, v -> '--ignore=' . v }) + [
+      \ '--nocolor',
+      \ '--nogroup',
+      \ '-g',
+      \ ''
+      \ ])
+call denite#custom#source('file/rec', 'matchers', ['matcher/substring'])
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', s:ignore_globs)
+
+" https://okayu-moka.hatenablog.com/entry/2018/11/03/135925
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+
+" https://qiita.com/pocari/items/1b76c211d5555fa87834
+nnoremap [denite] <Nop>
+nmap ,u [denite]
+nnoremap <silent> [denite]ff :<C-u>Denite file/rec<CR>
+nnoremap <silent> [denite]g  :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
+nnoremap <silent> [denite]r  :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
+
+" official doc
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+'''
+
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
 [[plugins]]
