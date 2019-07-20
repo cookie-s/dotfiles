@@ -64,14 +64,6 @@ let g:rustfmt_autosave = 1
 '''
 
 [[plugins]]
-repo = 'zchee/deoplete-clang'
-on_ft = ['c', 'cpp']
-hook_add = '''
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
-'''
-
-[[plugins]]
 repo = 'vim-syntastic/syntastic'
 on_ft = ['php', 'ocaml']
 hook_add = '''
