@@ -1,5 +1,5 @@
 [user]
-	email = cookie-s@users.noreply.github.com
+	email = kcz@kcz.sh
 	name = cookie-s
 	#signingkey = ###
 [push]
@@ -9,7 +9,7 @@
 [http]
 	sslVerify = true
 [gpg]
-	program = gpg2
+	program = gpg
 [commit]
 	#gpgsign = true
 [diff]
