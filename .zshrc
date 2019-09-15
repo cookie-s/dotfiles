@@ -86,6 +86,7 @@ alias cp="cp -i"
 alias unique="awk '!x[\$0]++'"
 alias cg='cd-gitroot'
 alias gdb='gdb -q'
+alias g++='g++ -Wall'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 
 alias beep="mplayer ~cookies/1up.wav > /dev/null 2>&1"
@@ -94,6 +95,8 @@ alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 alias httpserv="ruby -rsinatra -e 'set :bind, \"127.0.0.1\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
 alias httpserv-pub="ruby -rsinatra -e 'set :bind, \"0.0.0.0\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
+alias aslr-dis='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
+alias aslr-en='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 
 alias -s html=chromium
 alias -s xhtml=chromium
@@ -158,8 +161,13 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+nvm () {
+    unset -f nvm
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm "$@"
+}
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
