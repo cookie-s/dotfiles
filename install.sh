@@ -9,6 +9,7 @@ mkdir -p ~/.vim ~/.vimbackup
 ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.gdbinit \
     ~/dotfiles/.gitconfig \
+    ~/dotfiles/.gitignore_global \
     ~/dotfiles/.tmux.conf \
     ~/dotfiles/.vimrc \
     ~/dotfiles/.zshenv \
