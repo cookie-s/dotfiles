@@ -28,3 +28,5 @@ ln -s ~/dotfiles/.vim/indent \
     ~/dotfiles/.vim/ftplugin \
     ~/dotfiles/.vim/rc \
     ~/.vim/
+
+echo "don't forget to set your GPG key id in .gitconfig!"
