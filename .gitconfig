@@ -6,6 +6,7 @@
 	default = tracking
 [core]
 	editor = nvim
+	excludesfile = ~/.gitignore_global
 [http]
 	sslVerify = true
 [gpg]
