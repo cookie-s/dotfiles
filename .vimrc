@@ -165,11 +165,6 @@ let g:php_cs_fixer_verbose = 1
 nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 
-""" vim-rooter
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_manual_only = 1
-let g:rooter_use_lcd = 1
-
 """ language-server
 let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
