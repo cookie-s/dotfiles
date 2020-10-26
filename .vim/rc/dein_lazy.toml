@@ -3,6 +3,42 @@ repo = 'Shougo/vinarise'
 on_cmd = 'Vinarise'
 
 [[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_post_update = ':UpdateRemotePlugins'
+hook_source = '''
+let g:deoplete#enable_at_startup = 1
+
+" <C-e>: popup cancel
+inoremap <expr><C-e> deoplete#cancel_popup()
+
+call deoplete#custom#option('candidate_marks', ['A', 'S', 'D', 'F', 'G'])
+inoremap <expr><C-a> pumvisible() ? deoplete#insert_candidate(0) : 'A'
+inoremap <expr><C-s> pumvisible() ? deoplete#insert_candidate(1) : 'S'
+inoremap <expr><C-d> pumvisible() ? deoplete#insert_candidate(2) : 'D'
+inoremap <expr><C-f> pumvisible() ? deoplete#insert_candidate(3) : 'F'
+inoremap <expr><C-g> pumvisible() ? deoplete#insert_candidate(4) : 'G'
+
+call deoplete#custom#source('_', 'matchers', ['matcher_head'])
+call deoplete#custom#source('_', 'converters', [
+          \ 'converter_remove_paren',
+          \ 'converter_remove_overlap',
+          \ 'matcher_length',
+          \ 'converter_truncate_abbr',
+          \ 'converter_truncate_menu',
+          \ 'converter_auto_delimiter',
+          \ ])
+
+call deoplete#custom#option('keyword_patterns', {
+		\ '_': '[a-zA-Z_]\k*',
+		\ 'tex': '\\?[a-zA-Z_]\w*',
+		\ 'ruby': '[a-zA-Z_]\w*[!?]?',
+		\})
+'''
+
+[[plugins]]
+repo = 'Shougo/deoplete-clangx'
+
+[[plugins]]
 repo = 'slim-template/vim-slim'
 on_ft = 'slim'
 
@@ -45,7 +81,6 @@ hook_add = '''
 let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
 '''
 
-
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
@@ -87,3 +122,11 @@ let g:syntastic_mode_map = {
 let g:syntastic_php_checkers = ['phpcs']
 let g:syntastic_php_phpcs_args = '--standard=psr2'
 '''
+
+[[plugins]]
+repo = 'octol/vim-cpp-enhanced-highlight'
+on_ft = 'cpp'
+
+[[plugins]]
+repo = 'hashivim/vim-terraform'
+on_ft = ['tf', 'hcl']
