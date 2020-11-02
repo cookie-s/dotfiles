@@ -85,9 +85,6 @@ let g:rooter_cd_cmd="lcd"
 repo = 'tpope/vim-eunuch'
 
 [[plugins]]
-repo = 'cookie-s/project.vim'
-
-[[plugins]]
 repo = 'tpope/vim-fugitive'
 hook_add = '''
 command Gpr ! gh pr create -w
@@ -105,12 +102,6 @@ depends_on = ['vim-fugitive']
 repo = 'vim-scripts/matchit.zip'
 [[plugins]]
 repo = 'tpope/vim-sleuth'
-[[plugins]]
-repo = 'embear/vim-localvimrc'
-hook_add = '''
-let g:localvimrc_ask = 0
-let g:localvimrc_sandbox=0
-'''
 
 [[plugins]]
 repo = 'AndrewRadev/switch.vim'
