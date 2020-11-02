@@ -89,6 +89,17 @@ repo = 'cookie-s/project.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+hook_add = '''
+command Gpr ! gh pr create -w
+'''
+
+[[plugins]]
+repo = 'junegunn/gv.vim'
+depends_on = ['vim-fugitive']
+
+[[plugins]]
+repo = 'sodapopcan/vim-twiggy'
+depends_on = ['vim-fugitive']
 
 [[plugins]]
 repo = 'vim-scripts/matchit.zip'
