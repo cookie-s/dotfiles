@@ -34,6 +34,8 @@ if has("patch-7.4-2201")
     set signcolumn=yes
 endif
 
+autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif
+
 set number numberwidth=4
 set ruler
 set fileencoding=utf-8
