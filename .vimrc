@@ -34,8 +34,6 @@ if has("patch-7.4-2201")
     set signcolumn=yes
 endif
 
-autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif
-
 set number numberwidth=4
 set ruler
 set fileencoding=utf-8
@@ -80,24 +78,10 @@ inoremap jk <Esc> ""
 nnoremap === gg=G<C-o><C-o>
 hi MatchParen ctermbg=red
 
-
-""" project.vim
-let g:proj_flags = "imstcS"
-nmap \p <Plug>ToggleProject
-nnoremap \P :Project .vimproject<CR>
-autocmd BufAdd .vimproject silent! %foldopen!
-autocmd BufAdd .vimprojects silent! %foldopen!
-if getcwd() != $HOME
-    if filereadable(getcwd() . '/.vimproject')
-        autocmd VimEnter * Project .vimproject
-    endif
-endif
-
 """ matchit
 if !exists('loaded_matchit')
     runtime macros/matchit.vim
 endif
-
 
 """ switch
 function! s:separate_definition_to_each_filetypes(ft_dictionary)
@@ -117,12 +101,6 @@ function! s:separate_definition_to_each_filetypes(ft_dictionary)
 endfunction
 nnoremap <silent> - :Switch<CR>
 
-""" denite
-nnoremap [denite] <Nop>
-nmap <Space>u [denite]
-nnoremap <silent> [denite]b :<C-u>Denite -buffer-name=buffer buffer<CR>
-nnoremap <silent> [denite]f :<C-u>Denite -buffer-name=files file<CR>
-
 """ folding
 nnoremap  z[     :<C-u>call <SID>put_foldmarker(0)<CR>
 nnoremap  z]     :<C-u>call <SID>put_foldmarker(1)<CR>
@@ -140,47 +118,9 @@ function! s:put_foldmarker(foldclose_p) "{{{
 endfunction
 "}}}
 
-""" ocaml
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-if 0 == v:shell_error
-    execute 'set rtp+=' . g:opamshare . '/merlin/vim'
-    execute 'set rtp^=' . g:opamshare . '/ocp-indent/vim'
-    let g:syntastic_ocaml_checkers = [g:opamshare . '/bin/ocamlmerlin']
-endif
-
 """ airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='luna'
-
-""" vim-php-cs-fixer
-let g:php_cs_fixer_level = "symfony"
-let g:php_cs_fixer_config = "default"
-
-let g:php_cs_fixer_rules = "@Symfony"
-let g:php_cs_fixer_cache = ".php_cs.cache"
-
-let g:php_cs_fixer_php_path = "php"
-let g:php_cs_fixer_enable_default_mapping = 0
-let g:php_cs_fixer_dry_run = 1
-let g:php_cs_fixer_verbose = 1
-
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-
-""" language-server
-let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-            \ 'ruby': ['solargraph', 'stdio'],
-            \ 'python': ['pyls'],
-            \}
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-""" tag-bar
-let g:tagbar_width = 40
-nn <silent> <leader>t :TagbarToggle<CR>
 
 """ Jq
 command! -nargs=? Jq call s:Jq(<f-args>)
@@ -193,6 +133,7 @@ function! s:Jq(...)
     execute "%! jq \"" . l:arg . "\""
 endfunction
 
+""" .vimrc.local
 if filereadable(expand($HOME.'/.vimrc.local'))
   source $HOME/.vimrc.local
 endif

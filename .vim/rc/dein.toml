@@ -1,4 +1,11 @@
 [[plugins]]
+repo = 'roxma/nvim-yarp'
+if   = '''! has('nvim')'''
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if   = '''! has('nvim')'''
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
@@ -9,48 +16,6 @@ build= 'make'
 repo = 'Shougo/vimshell'
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-hook_add = '''
-let g:quickrun_config = {
-            \ '_' : {
-            \   'runner' : 'vimproc',
-            \   'runner/vimproc/updatetime' : 60,
-            \   'outputter' : 'error',
-            \   'outputter/error/success' : 'buffer',
-            \   'outputter/error/error' : 'quickfix',
-            \   'outputter/buffer/split' : 'rightbelow 8',
-            \   'outputter/buffer/close_on_empty' : 1,
-            \ },
-            \ 'tex' : {
-            \   'command' : 'latexmk',
-            \   'outputter' : 'error',
-            \   'outputter/error/success' : 'null',
-            \   'outputter/error/error' : 'quickfix',
-            \   'srcfile' : expand("%"),
-            \   'hook/sweep/files' : [
-            \       '%S:p:r.aux',
-            \       '%S:p:r.bbl',
-            \       '%S:p:r.blg',
-            \       '%S:p:r.dvi',
-            \       '%S:p:r.fdb_latexmk',
-            \       '%S:p:r.fls',
-            \       '%S:p:r.synctex.gz',
-            \       ],
-            \   'exec' : '%c %o %a %s'
-            \   },
-            \ 'scheme' : {
-            \   'command' : 'guile',
-            \ },
-            \ 'ocaml' : {
-            \   'command' : 'ocaml',
-            \ },
-            \}
-let g:quickrun_no_default_key_mappings = 1
-nnoremap \r :cclose<CR>:QuickRun -mode n<CR>
-xnoremap \r :<C-U>cclose<CR>gv:QuickRun -mode v<CR>
-'''
-
-[[plugins]]
 repo = 'Shougo/neosnippet'
 hook_add = '''
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -58,6 +23,7 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 let g:neosnippet#snippets_directory=['~/.vim/snippets/', '~/.vim/bundle/vim-snippets/snippets/']
 '''
+
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
@@ -71,32 +37,10 @@ repo = 'Shougo/neco-syntax'
 repo = 'tpope/vim-commentary'
 
 [[plugins]]
-repo = 'sheerun/vim-polyglot'
-
-[[plugins]]
-repo = 'airblade/vim-rooter'
-hook_add = '''
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_manual_only = 1
-let g:rooter_cd_cmd="lcd"
-'''
+repo = 'cookie-s/vim-polyglot'
 
 [[plugins]]
 repo = 'tpope/vim-eunuch'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-hook_add = '''
-command Gpr ! gh pr create -w
-'''
-
-[[plugins]]
-repo = 'junegunn/gv.vim'
-depends_on = ['vim-fugitive']
-
-[[plugins]]
-repo = 'sodapopcan/vim-twiggy'
-depends_on = ['vim-fugitive']
 
 [[plugins]]
 repo = 'vim-scripts/matchit.zip'
@@ -107,6 +51,7 @@ repo = 'tpope/vim-sleuth'
 repo = 'AndrewRadev/switch.vim'
 [[plugins]]
 repo = 'tpope/vim-endwise'
+
 [[plugins]]
 repo = 'vim-airline/vim-airline'
 [[plugins]]
@@ -118,60 +63,10 @@ colorscheme hybrid
 '''
 
 [[plugins]]
-repo = 'preservim/tagbar'
-
-[[plugins]]
-repo = 'alpaca-tc/alpaca_tags'
-hook_add = '''
-let g:alpaca_tags#config = {
-            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
-            \ 'js' : '--languages=+js',
-            \ '-js' : '--languages=-js,JavaScript',
-            \ 'vim' : '--languages=+Vim,vim',
-            \ 'php' : '--languages=+php',
-            \ '-vim' : '--languages=-Vim,vim',
-            \ '-style': '--languages=-css,scss,js,JavaScript,html',
-            \ 'scss' : '--languages=+scss --languages=-css',
-            \ 'css' : '--languages=+css',
-            \ 'java' : '--languages=+java $JAVA_HOME/src',
-            \ 'ruby': '--languages=+Ruby',
-            \ 'coffee': '--languages=+coffee',
-            \ '-coffee': '--languages=-coffee',
-            \ 'bundle': '--languages=+Ruby',
-            \ }
-augroup AlpacaTags
-    autocmd!
-    autocmd BufWritePost Gemfile AlpacaTagsBundle
-    autocmd BufEnter * AlpacaTagsSet
-    autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
-augroup END
-'''
-
-[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
-repo = 'mileszs/ack.vim'
-hook_add = '''
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-'''
-
-[[plugins]]
 repo = 'airblade/vim-gitgutter'
-
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-if   = '''! has('nvim')'''
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-if   = '''! has('nvim')'''
-
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-if   = '''has('python3')'''
-build = 'sh install.sh'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -187,7 +82,7 @@ call denite#custom#var('file/rec', 'command', [
       \ '-g',
       \ ''
       \ ])
-call denite#custom#source('file/rec', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/rec', 'matchers', ['matcher/fuzzy'])
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', s:ignore_globs)
 
 " https://okayu-moka.hatenablog.com/entry/2018/11/03/135925
@@ -199,9 +94,10 @@ call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-
 " https://qiita.com/pocari/items/1b76c211d5555fa87834
 nnoremap [denite] <Nop>
 nmap ,u [denite]
-nnoremap <silent> [denite]ff :<C-u>Denite file/rec<CR>
+nnoremap <silent> [denite]f  :<C-u>Denite file/rec -split=floating<CR>
 nnoremap <silent> [denite]g  :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
 nnoremap <silent> [denite]r  :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
+nnoremap <silent> [denite]b :<C-u>Denite -buffer-name=buffer buffer<CR>
 
 " official doc
 autocmd FileType denite call s:denite_my_settings()
@@ -214,19 +110,6 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
 endfunction
 '''
-
-[[plugins]]
-repo = 'ujihisa/unite-colorscheme'
-[[plugins]]
-repo = 'Shougo/echodoc.vim'
-
-[[plugins]]
-repo = 'jvirtanen/vim-octave'
-
-[[plugins]]
-repo = 'kevinw/pyflakes-vim'
-[[plugins]]
-repo = 'nvie/vim-flake8'
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
