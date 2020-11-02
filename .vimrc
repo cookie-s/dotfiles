@@ -137,3 +137,5 @@ endfunction
 if filereadable(expand($HOME.'/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
+
+autocmd VimEnter * call dein#call_hook('post_source')

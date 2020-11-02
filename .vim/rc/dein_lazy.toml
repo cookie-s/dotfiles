@@ -12,46 +12,6 @@ let g:rooter_cd_cmd="lcd"
 '''
 
 [[plugins]]
-repo = 'preservim/tagbar'
-hook_source = '''
-let g:tagbar_width = 40
-nnoremap <silent> <leader>t :TagbarToggle<CR>
-'''
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_post_update = ':UpdateRemotePlugins'
-hook_source = '''
-let g:deoplete#enable_at_startup = 1
-
-" <C-c>: popup cancel
-inoremap <expr><C-c> deoplete#cancel_popup()
-
-call deoplete#custom#option('candidate_marks', ['A', 'S', 'D', 'F', 'G'])
-inoremap <expr><C-a> pumvisible() ? deoplete#insert_candidate(0) : 'A'
-inoremap <expr><C-s> pumvisible() ? deoplete#insert_candidate(1) : 'S'
-inoremap <expr><C-d> pumvisible() ? deoplete#insert_candidate(2) : 'D'
-inoremap <expr><C-f> pumvisible() ? deoplete#insert_candidate(3) : 'F'
-inoremap <expr><C-g> pumvisible() ? deoplete#insert_candidate(4) : 'G'
-
-call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
-call deoplete#custom#source('_', 'converters', [
-          \ 'converter_remove_paren',
-          \ 'converter_remove_overlap',
-          \ 'matcher_length',
-          \ 'converter_truncate_abbr',
-          \ 'converter_truncate_menu',
-          \ 'converter_auto_delimiter',
-          \ ])
-
-call deoplete#custom#option('keyword_patterns', {
-		\ '_': '[a-zA-Z_]\k*',
-		\ 'tex': '\\?[a-zA-Z_]\w*',
-		\ 'ruby': '[a-zA-Z_]\w*[!?]?',
-		\})
-'''
-
-[[plugins]]
 repo = 'Shougo/deoplete-clangx'
 on_ft = 'cpp'
 
@@ -137,7 +97,6 @@ let g:rustfmt_autosave = 1
 repo = 'nvie/vim-flake8'
 on_ft = 'python'
 
-
 [[plugins]]
 repo = 'jvirtanen/vim-octave'
 on_ft = ['octave', 'matlab']
@@ -197,88 +156,3 @@ on_ft = 'cpp'
 [[plugins]]
 repo = 'hashivim/vim-terraform'
 on_ft = ['tf', 'hcl']
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-hook_post_source = '''
-command Gpr ! gh pr create -w
-autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif
-'''
-
-[[plugins]]
-repo = 'junegunn/gv.vim'
-depends = ['vim-fugitive']
-
-[[plugins]]
-repo = 'sodapopcan/vim-twiggy'
-depends = ['vim-fugitive']
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-hook_source = '''
-let g:quickrun_config = {
-            \ '_' : {
-            \   'runner' : 'vimproc',
-            \   'runner/vimproc/updatetime' : 60,
-            \   'outputter' : 'error',
-            \   'outputter/error/success' : 'buffer',
-            \   'outputter/error/error' : 'quickfix',
-            \   'outputter/buffer/split' : 'rightbelow 8',
-            \   'outputter/buffer/close_on_empty' : 1,
-            \ },
-            \ 'tex' : {
-            \   'command' : 'latexmk',
-            \   'outputter' : 'error',
-            \   'outputter/error/success' : 'null',
-            \   'outputter/error/error' : 'quickfix',
-            \   'srcfile' : expand("%"),
-            \   'hook/sweep/files' : [
-            \       '%S:p:r.aux',
-            \       '%S:p:r.bbl',
-            \       '%S:p:r.blg',
-            \       '%S:p:r.dvi',
-            \       '%S:p:r.fdb_latexmk',
-            \       '%S:p:r.fls',
-            \       '%S:p:r.synctex.gz',
-            \       ],
-            \   'exec' : '%c %o %a %s'
-            \   },
-            \ 'scheme' : {
-            \   'command' : 'guile',
-            \ },
-            \ 'ocaml' : {
-            \   'command' : 'ocaml',
-            \ },
-            \}
-let g:quickrun_no_default_key_mappings = 1
-nnoremap \r :cclose<CR>:QuickRun -mode n<CR>
-xnoremap \r :<C-U>cclose<CR>gv:QuickRun -mode v<CR>
-'''
-
-[[plugins]]
-repo = 'alpaca-tc/alpaca_tags'
-hook_add = '''
-let g:alpaca_tags#config = {
-            \ '_' : '-R --sort=yes --languages=+Ruby --languages=-js,JavaScript',
-            \ 'js' : '--languages=+js',
-            \ '-js' : '--languages=-js,JavaScript',
-            \ 'vim' : '--languages=+Vim,vim',
-            \ 'php' : '--languages=+php',
-            \ '-vim' : '--languages=-Vim,vim',
-            \ '-style': '--languages=-css,scss,js,JavaScript,html',
-            \ 'scss' : '--languages=+scss --languages=-css',
-            \ 'css' : '--languages=+css',
-            \ 'java' : '--languages=+java $JAVA_HOME/src',
-            \ 'ruby': '--languages=+Ruby',
-            \ 'coffee': '--languages=+coffee',
-            \ '-coffee': '--languages=-coffee',
-            \ 'bundle': '--languages=+Ruby',
-            \ }
-augroup AlpacaTags
-    autocmd!
-    autocmd BufWritePost Gemfile AlpacaTagsBundle
-    autocmd BufEnter * AlpacaTagsSet
-    autocmd BufWritePost * if isdirectory(glob(getcwd() . '/.git')) | AlpacaTagsUpdate -R | endif
-augroup END
-'''
-
