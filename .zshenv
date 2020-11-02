@@ -16,4 +16,4 @@ alias emacs=$EDITOR
 
 export GOHOME=$HOME/go
 
-[ -f ~/.zshenv.local ] && source ~/.zshenv.local
+export CLOUDSDK_PYTHON=python3

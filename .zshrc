@@ -64,6 +64,8 @@ REPORTTIME=3
 
 autoload -U colors && colors
 
+source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 function set-title() {
     print "\e]0;$1\a"
 }
@@ -77,6 +79,7 @@ case "$OSTYPE" in
         alias ls="ls --color=auto -F"
         ;;
 esac
+
 which nvim > /dev/null 2>&1 && alias vim="nvim"
 alias ll="ls -l"
 alias la="ls -a"
@@ -138,36 +141,37 @@ function h() {
     fi
 }
 
-function grt() {
-    git rev-parse --show-toplevel
+ssh() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    tmux rename-window -- "$1"
+    command ssh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command ssh "$@"
+  fi
 }
-
-source $HOME/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# OPAM configuration
-. /home/cookies/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
-
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$PATH:$HOME/.local/bin"
 
 nvm () {
     unset -f nvm
 
     export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     nvm "$@"
 }
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+which pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+[ -d $HOME/.rvm/bin ] && export PATH="$PATH:$HOME/.rvm/bin"
+
+export PATH="$PATH:$HOME/.local/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ] && source "$HOME/google-cloud-sdk/path.zsh.inc"
+
+# The next line enables shell command completion for gcloud.
+[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ] && source "$HOME/google-cloud-sdk/completion.zsh.inc"
+
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
