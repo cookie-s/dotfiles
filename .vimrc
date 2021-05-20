@@ -1,3 +1,5 @@
+" vim: foldmethod=marker
+
 if !1 | finish | endif
 if &compatible
     set nocompatible
@@ -22,7 +24,7 @@ if v:version >= 800
         call dein#save_state()
     endif
 
-    if !has('vim_starting') && dein#check_install()
+    if has('vim_starting') && dein#check_install()
         call dein#install()
     endif
 endif
@@ -50,7 +52,6 @@ set lazyredraw
 set visualbell
 set laststatus=2
 
-set updatetime=3000
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
 
@@ -83,7 +84,7 @@ if !exists('loaded_matchit')
     runtime macros/matchit.vim
 endif
 
-""" switch
+""" switch {{{
 function! s:separate_definition_to_each_filetypes(ft_dictionary)
     let result = {}
 
@@ -100,11 +101,12 @@ function! s:separate_definition_to_each_filetypes(ft_dictionary)
     return result
 endfunction
 nnoremap <silent> - :Switch<CR>
+"}}}
 
-""" folding
+""" folding {{{
 nnoremap  z[     :<C-u>call <SID>put_foldmarker(0)<CR>
 nnoremap  z]     :<C-u>call <SID>put_foldmarker(1)<CR>
-function! s:put_foldmarker(foldclose_p) "{{{
+function! s:put_foldmarker(foldclose_p)
     let crrstr = getline('.')
     let padding = crrstr=='' ? '' : crrstr=~'\s$' ? '' : ' '
     let [cms_start, cms_end] = ['', '']
@@ -118,11 +120,7 @@ function! s:put_foldmarker(foldclose_p) "{{{
 endfunction
 "}}}
 
-""" airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='luna'
-
-""" Jq
+""" Jq {{{
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
     if 0 == a:0
@@ -132,6 +130,7 @@ function! s:Jq(...)
     endif
     execute "%! jq \"" . l:arg . "\""
 endfunction
+"}}}
 
 """ .vimrc.local
 if filereadable(expand($HOME.'/.vimrc.local'))

@@ -102,29 +102,12 @@ repo = 'jvirtanen/vim-octave'
 on_ft = ['octave', 'matlab']
 
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-if   = '''has('python3')'''
-build = 'sh install.sh'
-on_ft = ['rust', 'ruby', 'python']
-hook_source = '''
-let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-            \ 'ruby': ['solargraph', 'stdio'],
-            \ 'python': ['pyls'],
-            \}
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-'''
-
-[[plugins]]
 repo = 'HerringtonDarkholme/yats.vim'
 
 [[plugins]]
 repo = 'mhartington/nvim-typescript'
 on_ft = ['typescript']
-build = './install.sh'
+build = 'sh install.sh'
 depends = 'yats.vim'
 
 [[plugins]]

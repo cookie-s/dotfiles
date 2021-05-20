@@ -48,12 +48,14 @@ repo = 'vim-scripts/matchit.zip'
 repo = 'tpope/vim-sleuth'
 
 [[plugins]]
-repo = 'AndrewRadev/switch.vim'
-[[plugins]]
 repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
+hook_source = '''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='luna'
+'''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
@@ -114,15 +116,14 @@ endfunction
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_post_update = ':UpdateRemotePlugins'
-hook_add = '''
-autocmd VimEnter * execute 'Defx'
+hook_post_source = '''
 nnoremap <silent> ,f :<C-u> Defx <CR>
 
 autocmd FileType defx call s:defx_my_settings()
 
 function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> <CR>
-   \ defx#do_action('drop')
+  \ defx#do_action('drop')
   nnoremap <silent><buffer><expr> c
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
@@ -196,6 +197,8 @@ call defx#custom#option('_', {
       \ 'resume': 1,
       \ 'columns': 'indent:git:icons:filename:mark',
       \ })
+
+Defx
 '''
 
 [[plugins]]
@@ -219,7 +222,7 @@ depends = ['vim-fugitive']
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-hook_add = '''
+hook_post_source = '''
 let g:quickrun_config = {
             \ '_' : {
             \   'runner' : 'vimproc',
@@ -246,7 +249,7 @@ let g:quickrun_config = {
             \       '%S:p:r.synctex.gz',
             \       ],
             \   'exec' : '%c %o %a %s'
-            \   },
+            \ },
             \ 'scheme' : {
             \   'command' : 'guile',
             \ },
@@ -297,7 +300,7 @@ nnoremap <silent> <leader>t :TagbarToggle<CR>
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_post_update = ':UpdateRemotePlugins'
-hook_add = '''
+hook_post_source = '''
 let g:deoplete#enable_at_startup = 1
 
 " <C-c>: popup cancel
@@ -327,3 +330,41 @@ call deoplete#custom#option('keyword_patterns', {
 		\})
 '''
 
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
