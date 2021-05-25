@@ -52,7 +52,7 @@ repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
-hook_source = '''
+hook_add = '''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='luna'
 '''
