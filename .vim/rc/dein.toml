@@ -256,6 +256,9 @@ let g:quickrun_config = {
             \ 'ocaml' : {
             \   'command' : 'ocaml',
             \ },
+            \ 'rust' : {
+            \   'exec' : 'cargo run',
+            \ },
             \}
 let g:quickrun_no_default_key_mappings = 1
 nnoremap \r :cclose<CR>:QuickRun -mode n<CR>
@@ -361,6 +364,16 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+" https://github.com/prabirshrestha/vim-lsp/wiki/Servers-Rust
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
 '''
 
 [[plugins]]
