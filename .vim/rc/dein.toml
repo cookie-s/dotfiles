@@ -88,10 +88,14 @@ call denite#custom#source('file/rec', 'matchers', ['matcher/fuzzy'])
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', s:ignore_globs)
 
 " https://okayu-moka.hatenablog.com/entry/2018/11/03/135925
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+call denite#custom#var('grep', {
+    \ 'command': ['ag'],
+    \ 'default_opts': ['-i', '--vimgrep'],
+    \ 'recursive_opts': [],
+    \ 'pattern_opt': [],
+    \ 'separator': ['--'],
+    \ 'final_opts': [],
+    \ })
 
 " https://qiita.com/pocari/items/1b76c211d5555fa87834
 nnoremap [denite] <Nop>
@@ -327,10 +331,10 @@ call deoplete#custom#source('_', 'converters', [
           \ ])
 
 call deoplete#custom#option('keyword_patterns', {
-		\ '_': '[a-zA-Z_]\k*',
-		\ 'tex': '\\?[a-zA-Z_]\w*',
-		\ 'ruby': '[a-zA-Z_]\w*[!?]?',
-		\})
+          \ '_': '[a-zA-Z_]\k*',
+          \ 'tex': '\\?[a-zA-Z_]\w*',
+          \ 'ruby': '[a-zA-Z_]\w*[!?]?',
+          \})
 '''
 
 [[plugins]]
@@ -353,10 +357,8 @@ function! s:on_lsp_buffer_enabled() abort
     inoremap <buffer> <expr><c-f> lsp#scroll(+4)
     inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
-    let g:lsp_format_sync_timeout = 1000
-    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    
-    " refer to doc to add more commands
+    let g:lsp_format_sync_timeout = 10000
+    autocmd! BufWritePre *.rs,*.go,*.tf call execute('LspDocumentFormatSync')
 endfunction
 
 augroup lsp_install
@@ -367,13 +369,25 @@ augroup END
 
 " https://github.com/prabirshrestha/vim-lsp/wiki/Servers-Rust
 if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
-        \ })
+    augroup LspRLS
+        au!
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'rls',
+            \ 'cmd': {server_info->['rls']},
+            \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+            \ 'allowlist': ['rust'],
+            \ })
+    augroup END
 endif
+
+augroup LspEFM
+  au!
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'efm-langserver',
+      \ 'cmd': {server_info->['efm-langserver']},
+      \ 'allowlist': ['markdown'],
+      \ })
+augroup END
 '''
 
 [[plugins]]
