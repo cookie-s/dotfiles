@@ -40,11 +40,8 @@ setopt long_list_jobs
 
 autoload -Uz cd-gitroot
 autoload -U promptinit && promptinit
-PURE_PROMPT_SYMBOL='>>'
-PURE_GIT_DOWN_ARROW='v'
-PURE_GIT_UP_ARROW='^'
-prompt pure
 autoload -Uz git-escape-magic && git-escape-magic
+eval "$(starship init zsh)"
 
 if [ -d $HOME/dotfiles/fzf ]; then
     source $HOME/dotfiles/fzf/shell/completion.zsh
