@@ -32,8 +32,8 @@ jobs:
           ln -s $GITHUB_WORKSPACE/.vimrc ~
 
       - run: |
-          ${{ steps.vim.outputs.executable }} --version
+          nvim --version
 
       - run: |
-          ${{ steps.vim.outputs.executable }} -c q
+          nvim -c q
 
