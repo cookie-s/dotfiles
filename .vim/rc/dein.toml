@@ -58,10 +58,11 @@ let g:airline_theme='luna'
 '''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
+
 [[plugins]]
-repo = 'w0ng/vim-hybrid'
+repo = 'altercation/vim-colors-solarized'
 hook_add = '''
-colorscheme hybrid
+colorscheme solarized
 '''
 
 [[plugins]]
