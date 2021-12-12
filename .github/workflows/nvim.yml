@@ -18,8 +18,6 @@ jobs:
         id: vim
         with:
           download: always
-          vim_type: neovim
-          vim_version: stable
 
       # - name: ln .vimrc
       #   run: |
