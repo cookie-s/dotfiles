@@ -17,10 +17,10 @@ jobs:
       - name: 'install neovim'
         run: |
           # https://github.com/neovim/neovim/wiki/Installing-Neovim
-          apt-get install software-properties-common
-          add-apt-repository ppa:neovim-ppa/stable
-          apt-get update
-          apt-get install neovim
+          sudo apt-get install software-properties-common
+          sudo add-apt-repository ppa:neovim-ppa/stable
+          sudo apt-get update
+          sudo apt-get install neovim
 
       # - uses: thinca/action-setup-vim@v1 # https://github.com/thinca/action-setup-vim
       #   id: vim
