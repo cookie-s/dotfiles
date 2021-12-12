@@ -10,22 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - uses: actions/checkout@v2
-      #   with:
-      #     fetch-depth: 1
-
-      - uses: thinca/action-setup-vim@v1 # https://github.com/thinca/action-setup-vim
-        id: vim
+      - uses: actions/checkout@v2
         with:
-          download: always
+          fetch-depth: 1
 
-      # - name: ln .vimrc
-      #   run: |
-      #     ln -s $GITHUB_WORKSPACE/.vimrc ~
+      - name: 'install neovim'
+        run: |
+          # https://github.com/neovim/neovim/wiki/Installing-Neovim
+          apt-get install software-properties-common
+          add-apt-repository ppa:neovim-ppa/stable
+          apt-get update
+          apt-get install neovim
 
-      # - run: |
-      #     ${{ steps.vim.outputs.executable }} --version
+      # - uses: thinca/action-setup-vim@v1 # https://github.com/thinca/action-setup-vim
+      #   id: vim
+      #   with:
+      #     download: always
 
-      # - run: |
-      #     ${{ steps.vim.outputs.executable }} -c q
+      - name: ln .vimrc
+        run: |
+          ln -s $GITHUB_WORKSPACE/.vimrc ~
+
+      - run: |
+          ${{ steps.vim.outputs.executable }} --version
+
+      - run: |
+          ${{ steps.vim.outputs.executable }} -c q
 
