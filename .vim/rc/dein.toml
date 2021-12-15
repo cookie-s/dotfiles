@@ -54,16 +54,14 @@ repo = 'tpope/vim-endwise'
 repo = 'vim-airline/vim-airline'
 hook_add = '''
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='luna'
+let g:airline_theme='solarized_flood'
 '''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
-hook_add = '''
-colorscheme solarized
-'''
+# colorscheme is in .vimrc
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'

@@ -31,6 +31,8 @@ endif
 
 filetype plugin indent on
 syntax enable
+set background=dark
+colorscheme solarized " https://github.com/altercation/vim-colors-solarized
 
 if has("patch-7.4-2201")
     set signcolumn=yes
@@ -55,8 +57,6 @@ set laststatus=2
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
 
-set background=dark
-set t_Co=256
 
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
 
