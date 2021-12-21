@@ -22,7 +22,11 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.gemrc \
     ~
 mkdir -p ~/.config
-ln -s ~/dotfiles/.config/nvim ~/.config
+ln -s \
+    ~/dotfiles/.config/nvim \
+    ~/dotfiles/starship.toml \
+    ~/.config
+
 ln -s ~/dotfiles/.vim/indent \
     ~/dotfiles/.vim/syntax \
     ~/dotfiles/.vim/ftplugin \
