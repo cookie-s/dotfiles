@@ -70,19 +70,25 @@ repo = 'editorconfig/editorconfig-vim'
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+'''
+
+[[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_add = '''
 " https://qiita.com/hrsh7th@github/items/e405b4f4228e10a43201
 let s:ignore_globs = ['.git', '.svn', 'node_modules']
 call denite#custom#var('file/rec', 'command', [
-      \ 'ag',
-      \ '--follow',
-      \ ] + map(deepcopy(s:ignore_globs), { k, v -> '--ignore=' . v }) + [
-      \ '--nocolor',
-      \ '--nogroup',
-      \ '-g',
-      \ ''
-      \ ])
+    \ 'ag',
+    \ '--follow',
+    \ ] + map(deepcopy(s:ignore_globs), { k, v -> '--ignore=' . v }) + [
+    \ '--nocolor',
+    \ '--nogroup',
+    \ '-g',
+    \ ''
+    \ ])
 call denite#custom#source('file/rec', 'matchers', ['matcher/fuzzy'])
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', s:ignore_globs)
 
@@ -191,15 +197,15 @@ function! s:defx_my_settings() abort
 endfunction
 
 call defx#custom#option('_', {
-      \ 'winwidth': 40,
-      \ 'split': 'vertical',
-      \ 'direction': 'topleft',
-      \ 'show_ignored_files': 1,
-      \ 'buffer_name': 'exlorer',
-      \ 'toggle': 1,
-      \ 'resume': 1,
-      \ 'columns': 'indent:git:icons:filename:mark',
-      \ })
+    \ 'winwidth': 40,
+    \ 'split': 'vertical',
+    \ 'direction': 'topleft',
+    \ 'show_ignored_files': 1,
+    \ 'buffer_name': 'exlorer',
+    \ 'toggle': 1,
+    \ 'resume': 1,
+    \ 'columns': 'indent:git:icons:filename:mark',
+    \ })
 
 Defx
 '''
@@ -321,19 +327,19 @@ inoremap <expr><C-g> pumvisible() ? deoplete#insert_candidate(4) : 'G'
 
 call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
 call deoplete#custom#source('_', 'converters', [
-          \ 'converter_remove_paren',
-          \ 'converter_remove_overlap',
-          \ 'matcher_length',
-          \ 'converter_truncate_abbr',
-          \ 'converter_truncate_menu',
-          \ 'converter_auto_delimiter',
-          \ ])
+        \ 'converter_remove_paren',
+        \ 'converter_remove_overlap',
+        \ 'matcher_length',
+        \ 'converter_truncate_abbr',
+        \ 'converter_truncate_menu',
+        \ 'converter_auto_delimiter',
+        \ ])
 
 call deoplete#custom#option('keyword_patterns', {
-          \ '_': '[a-zA-Z_]\k*',
-          \ 'tex': '\\?[a-zA-Z_]\w*',
-          \ 'ruby': '[a-zA-Z_]\w*[!?]?',
-          \})
+        \ '_': '[a-zA-Z_]\k*',
+        \ 'tex': '\\?[a-zA-Z_]\w*',
+        \ 'ruby': '[a-zA-Z_]\w*[!?]?',
+        \})
 '''
 
 [[plugins]]
@@ -382,10 +388,10 @@ endif
 augroup LspEFM
   au!
   au User lsp_setup call lsp#register_server({
-      \ 'name': 'efm-langserver',
-      \ 'cmd': {server_info->['efm-langserver']},
-      \ 'allowlist': ['markdown'],
-      \ })
+    \ 'name': 'efm-langserver',
+    \ 'cmd': {server_info->['efm-langserver']},
+    \ 'allowlist': ['markdown'],
+    \ })
 augroup END
 '''
 

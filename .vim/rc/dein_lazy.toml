@@ -90,22 +90,9 @@ repo = 'nvie/vim-flake8'
 on_ft = 'python'
 
 [[plugins]]
-repo = 'jvirtanen/vim-octave'
-on_ft = ['octave', 'matlab']
-
-[[plugins]]
-repo = 'HerringtonDarkholme/yats.vim'
-
-[[plugins]]
-repo = 'mhartington/nvim-typescript'
-on_ft = ['typescript']
-build = 'sh install.sh'
-depends = 'yats.vim'
-
-[[plugins]]
 repo = 'vim-syntastic/syntastic'
 on_ft = ['php', 'ocaml']
-hook_add = '''
+hook_post_source = '''
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
