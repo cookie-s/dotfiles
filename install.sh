@@ -33,4 +33,8 @@ ln -s ~/dotfiles/.vim/indent \
     ~/dotfiles/.vim/rc \
     ~/.vim/
 
+mkdir -p ~/.gnupg
+ln -s ~/dotfiles/.gnupg/gpg.conf \
+    ~/.gnupg/
+
 echo "don't forget to set your GPG key id in .gitconfig!"
