@@ -1,6 +1,3 @@
-[submodule "pure"]
-	path = pure
-	url = https://github.com/sindresorhus/pure
 [submodule "zsh-git-escape-magic"]
 	path = zsh-git-escape-magic
 	url = https://github.com/knu/zsh-git-escape-magic
