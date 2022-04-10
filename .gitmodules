@@ -15,4 +15,4 @@
 	url = https://github.com/plotnikovanton/net_widgets
 [submodule "fzf"]
 	path = fzf
-	url = git://github.com/junegunn/fzf
+	url = https://github.com/junegunn/fzf
