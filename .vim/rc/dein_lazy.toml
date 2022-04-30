@@ -51,10 +51,6 @@ nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 '''
 
 [[plugins]]
-repo = 'leafgarland/typescript-vim'
-on_ft = 'typescript'
-
-[[plugins]]
 repo = 'posva/vim-vue'
 on_ft = 'vue'
 hook_add = '''

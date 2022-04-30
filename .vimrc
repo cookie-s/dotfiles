@@ -57,9 +57,6 @@ set laststatus=2
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
 
-
-autocmd BufRead,BufNewFile *.ts set filetype=typescript
-
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 

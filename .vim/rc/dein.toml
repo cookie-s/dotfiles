@@ -345,6 +345,9 @@ call deoplete#custom#option('keyword_patterns', {
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
@@ -371,19 +374,6 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-
-" https://github.com/prabirshrestha/vim-lsp/wiki/Servers-Rust
-if executable('rls')
-    augroup LspRLS
-        au!
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'rls',
-            \ 'cmd': {server_info->['rls']},
-            \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-            \ 'allowlist': ['rust'],
-            \ })
-    augroup END
-endif
 
 augroup LspEFM
   au!
