@@ -1,2 +1,53 @@
+format =  """
+$username\
+$hostname\
+$kubernetes\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$package\
+$c\
+$cmake\
+$container\
+$deno\
+$golang\
+$helm\
+$java\
+$nodejs\
+$perl\
+$php\
+$pulumi\
+$python\
+$ruby\
+$rust\
+$scala\
+$terraform\
+$vlang\
+$vagrant\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$directory\
+$shell\
+$character
+"""
+
 [gcloud]
 format = 'on [$symbol($project)]($style) '
+
+[kubernetes]
+disabled = false
+
+[directory]
+truncation_length = 8
