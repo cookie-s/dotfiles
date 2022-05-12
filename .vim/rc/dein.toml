@@ -343,6 +343,9 @@ call deoplete#custom#option('keyword_patterns', {
 '''
 
 [[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
 let g:lsp_log_verbose = 1
@@ -387,6 +390,9 @@ augroup END
 
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
 repo = 'lighttiger2505/deoplete-vim-lsp'
