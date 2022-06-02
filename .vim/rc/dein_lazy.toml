@@ -70,11 +70,6 @@ let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
 '''
 
 [[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
-
-
-[[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = 'rust'
 hook_add = '''
