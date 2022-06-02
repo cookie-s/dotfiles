@@ -39,7 +39,6 @@ setopt transient_rprompt
 setopt long_list_jobs
 
 autoload -Uz cd-gitroot
-autoload -U promptinit && promptinit
 autoload -Uz git-escape-magic && git-escape-magic
 eval "$(starship init zsh)"
 
@@ -94,7 +93,7 @@ alias dispoff="xset dpms force standby"
 alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 alias httpserv="ruby -rsinatra -e 'set :bind, \"127.0.0.1\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
-alias httpserv-pub="ruby -rsinatra -e 'set :bind, \"0.0.0.0\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
+alias httpserv-pub="miniserve"
 alias aslr-dis='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias aslr-en='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 
@@ -163,7 +162,5 @@ export PATH="$PATH:$HOME/.local/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
-

@@ -1,7 +1,5 @@
 export SHELL=/bin/zsh
 
-which rustc >/dev/null && export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-
 which chromium >/dev/null && export BROWSER="chromium"
 
 export PAGER="less"
