@@ -24,31 +24,8 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
 [[plugins]]
-repo = 'vim-scripts/sh.vim--Cla'
-on_ft = 'sh'
-
-[[plugins]]
 repo = 'elzr/vim-json'
 on_ft = 'json'
-
-[[plugins]]
-repo = 'stephpy/vim-php-cs-fixer'
-on_ft = 'php'
-on_source = '''
-let g:php_cs_fixer_level = "symfony"
-let g:php_cs_fixer_config = "default"
-
-let g:php_cs_fixer_rules = "@Symfony"
-let g:php_cs_fixer_cache = ".php_cs.cache"
-
-let g:php_cs_fixer_php_path = "php"
-let g:php_cs_fixer_enable_default_mapping = 0
-let g:php_cs_fixer_dry_run = 1
-let g:php_cs_fixer_verbose = 1
-
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-'''
 
 [[plugins]]
 repo = 'posva/vim-vue'
@@ -58,54 +35,16 @@ autocmd FileType vue syntax sync fromstart
 '''
 
 [[plugins]]
-repo = 'deoplete-plugins/deoplete-go'
-build= 'make'
-if   = '''has('python3')'''
-on_ft = 'go'
-hook_post_update = '''
-GoInstallBinaries
-'''
-hook_add = '''
-let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
-'''
-
-[[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = 'rust'
-hook_add = '''
-let g:rustfmt_autosave = 1
-'''
-
-[[plugins]]
-repo = 'nvie/vim-flake8'
-on_ft = 'python'
-
-[[plugins]]
-repo = 'vim-syntastic/syntastic'
-on_ft = ['php', 'ocaml']
-hook_post_source = '''
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_echo_current_error = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_enable_highlighting = 1
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_mode_map = {
-            \ 'mode': 'active',
-            \ 'active_filetypes': ['php']
-            \}
-let g:syntastic_php_checkers = ['phpcs']
-let g:syntastic_php_phpcs_args = '--standard=psr2'
-'''
 
 [[plugins]]
 repo = 'octol/vim-cpp-enhanced-highlight'
 on_ft = 'cpp'
 
-[[plugins]]
-repo = 'hashivim/vim-terraform'
-on_ft = ['tf', 'hcl']
+# repo = 'vim-scripts/sh.vim--Cla'
+# repo = 'stephpy/vim-php-cs-fixer'
+# repo = 'deoplete-plugins/deoplete-go'
+# repo = 'nvie/vim-flake8'
+# repo = 'vim-syntastic/syntastic'
+# repo = 'hashivim/vim-terraform'
