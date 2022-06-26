@@ -309,9 +309,6 @@ call deoplete#custom#option('keyword_patterns', {
 '''
 
 [[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
 function! s:on_lsp_buffer_enabled() abort
@@ -344,22 +341,13 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-
-augroup LspEFM
-  au!
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'efm-langserver',
-    \ 'cmd': {server_info->['efm-langserver']},
-    \ 'allowlist': ['markdown'],
-    \ })
-augroup END
 '''
 
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
 
 [[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
 repo = 'lighttiger2505/deoplete-vim-lsp'
+
+# repo = 'prabirshrestha/asyncomplete.vim'
+# repo = 'prabirshrestha/asyncomplete-lsp.vim'
