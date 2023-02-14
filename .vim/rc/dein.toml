@@ -325,7 +325,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gt <plug>(lsp-type-definition)
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover-preview)
+    nmap <buffer> K <plug>(lsp-hover)
     nmap <buffer> <leader>c <plug>(lsp-call-hierarchy-incoming)
     nmap <buffer> <leader>C <plug>(lsp-call-hierarchy-outgoing)
     nmap <buffer> <leader>rn <plug>(lsp-rename)
@@ -349,5 +349,7 @@ repo = 'mattn/vim-lsp-settings'
 [[plugins]]
 repo = 'lighttiger2505/deoplete-vim-lsp'
 
-# repo = 'prabirshrestha/asyncomplete.vim'
-# repo = 'prabirshrestha/asyncomplete-lsp.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'

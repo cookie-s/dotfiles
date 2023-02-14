@@ -53,6 +53,7 @@ set hidden
 set lazyredraw
 set visualbell
 set laststatus=2
+set mouse= " disable mouse
 
 set backupdir=$HOME/.vimbackup
 set directory=$HOME/.vimbackup
