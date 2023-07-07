@@ -97,6 +97,9 @@ alias httpserv-pub="miniserve"
 alias aslr-dis='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias aslr-en='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 
+alias g="g++ a.cpp -O3 -Iac-library"
+alias k="kubectl"
+
 alias -s html=chromium
 alias -s xhtml=chromium
 alias -s gif=feh
@@ -152,7 +155,7 @@ which pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 [ -d $HOME/.rvm/bin ] && export PATH="$PATH:$HOME/.rvm/bin"
 
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ] && source "$HOME/google-cloud-sdk/path.zsh.inc"
