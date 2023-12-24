@@ -6,6 +6,12 @@ repo = 'roxma/vim-hug-neovim-rpc'
 if   = '''! has('nvim')'''
 
 [[plugins]]
+repo = 'moll/vim-bbye'
+hook_add = '''
+nnoremap <silent> <leader>q :Bdelete<CR>
+'''
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
