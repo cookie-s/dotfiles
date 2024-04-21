@@ -19,9 +19,6 @@ repo = 'Shougo/vimproc'
 build= 'make'
 
 [[plugins]]
-repo = 'Shougo/vimshell'
-
-[[plugins]]
 repo = 'Shougo/neosnippet'
 hook_add = '''
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -103,11 +100,11 @@ call denite#custom#var('grep', {
 
 " https://qiita.com/pocari/items/1b76c211d5555fa87834
 nnoremap [denite] <Nop>
-nmap ,u [denite]
+nmap \u [denite]
 nnoremap <silent> [denite]f  :<C-u>Denite file/rec -split=floating<CR>
 nnoremap <silent> [denite]g  :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
 nnoremap <silent> [denite]r  :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
-nnoremap <silent> [denite]b :<C-u>Denite -buffer-name=buffer buffer<CR>
+nnoremap <silent> [denite]b  :<C-u>Denite -buffer-name=buffer buffer<CR>
 
 " official doc
 autocmd FileType denite call s:denite_my_settings()
@@ -274,44 +271,20 @@ nnoremap \r :cclose<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>cclose<CR>gv:QuickRun -mode v<CR>
 '''
 
+# [[plugins]]
+# repo = 'preservim/tagbar'
+# hook_add = '''
+# let g:tagbar_width = 40
+# nnoremap <silent> <leader>t :TagbarToggle<CR>
+# '''
+
 [[plugins]]
-repo = 'preservim/tagbar'
+repo = 'liuchengxu/vista.vim'
 hook_add = '''
-let g:tagbar_width = 40
-nnoremap <silent> <leader>t :TagbarToggle<CR>
-'''
+let g:vista_default_executive = 'ctags'
+let g:vista_icon_indent = ["╰- ", "├- "]
 
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_post_update = ':UpdateRemotePlugins'
-hook_post_source = '''
-let g:deoplete#enable_at_startup = 1
-
-" <C-c>: popup cancel
-inoremap <expr><C-c> deoplete#cancel_popup()
-
-call deoplete#custom#option('candidate_marks', ['A', 'S', 'D', 'F', 'G'])
-inoremap <expr><C-a> pumvisible() ? deoplete#insert_candidate(0) : 'A'
-inoremap <expr><C-s> pumvisible() ? deoplete#insert_candidate(1) : 'S'
-inoremap <expr><C-d> pumvisible() ? deoplete#insert_candidate(2) : 'D'
-inoremap <expr><C-f> pumvisible() ? deoplete#insert_candidate(3) : 'F'
-inoremap <expr><C-g> pumvisible() ? deoplete#insert_candidate(4) : 'G'
-
-call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
-call deoplete#custom#source('_', 'converters', [
-        \ 'converter_remove_paren',
-        \ 'converter_remove_overlap',
-        \ 'matcher_length',
-        \ 'converter_truncate_abbr',
-        \ 'converter_truncate_menu',
-        \ 'converter_auto_delimiter',
-        \ ])
-
-call deoplete#custom#option('keyword_patterns', {
-        \ '_': '[a-zA-Z_]\k*',
-        \ 'tex': '\\?[a-zA-Z_]\w*',
-        \ 'ruby': '[a-zA-Z_]\w*[!?]?',
-        \})
+nnoremap <silent> <leader>V :Vista!!<CR>
 '''
 
 [[plugins]]
@@ -335,25 +308,21 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <leader>c <plug>(lsp-call-hierarchy-incoming)
     nmap <buffer> <leader>C <plug>(lsp-call-hierarchy-outgoing)
     nmap <buffer> <leader>rn <plug>(lsp-rename)
-    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-u> lsp#scroll(-4)
 
     let g:lsp_format_sync_timeout = 10000
     autocmd! BufWritePre *.rs,*.go,*.tf call execute('LspDocumentFormatSync')
 endfunction
 
 augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 '''
 
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
-
-[[plugins]]
-repo = 'lighttiger2505/deoplete-vim-lsp'
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
