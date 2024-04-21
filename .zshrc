@@ -42,20 +42,6 @@ autoload -Uz cd-gitroot
 autoload -Uz git-escape-magic && git-escape-magic
 eval "$(starship init zsh)"
 
-if [ -d $HOME/dotfiles/fzf ]; then
-    source $HOME/dotfiles/fzf/shell/completion.zsh
-    source $HOME/dotfiles/fzf/shell/key-bindings.zsh
-    if which ag > /dev/null 2>&1 ; then
-        export FZF_DEFAULT_COMMAND='REPORTTIME='' ag --nocolor -g ""'
-        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-        export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-        export FZF_DEFAULT_OPTS='
-        --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-        --color info:108,prompt:109,spinner:108,pointer:168,marker:168
-        '
-    fi
-fi
-
 REPORTTIME=3
 
 autoload -U colors && colors
@@ -88,16 +74,13 @@ alias gdb='gdb -q'
 alias g++='g++ -Wall'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 
-alias beep="mplayer ~cookies/1up.wav > /dev/null 2>&1"
 alias dispoff="xset dpms force standby"
 alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 alias httpserv="ruby -rsinatra -e 'set :bind, \"127.0.0.1\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
-alias httpserv-pub="miniserve"
 alias aslr-dis='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias aslr-en='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 
-alias g="g++ a.cpp -O3 -Iac-library"
 alias k="kubectl"
 
 alias -s html=chromium
@@ -116,14 +99,6 @@ alias -s mpeg=mplayer
 alias -s flv=mplayer
 alias -s avi=mplayer
 
-function l() {
-    if [[ ($# -eq 1 && -f "$1") || (-p /dev/stdin) ]]; then
-        less "$@"
-    else
-        ls -alF --color=auto "$@"
-    fi
-}
-
 function p() {
     if [[ $# -gt 0 ]]; then
         ps auxww | grep "$@"
@@ -132,19 +107,22 @@ function p() {
     fi
 }
 
-function h() {
-    if [[ $# -gt 0 ]]; then
-        history | tac | sort -k2 -u | sort | grep "$@"
-    else
-        history 50
-    fi
+function g() {
+    case ${OSTYPE} in
+        darwin*)
+            g++ -Wall -Wl,-stack_size -Wl,100000000 -std=c++2a -O3 "$@"
+            ;;
+        linux*)
+            g++ a.cpp -O3 -Iac-library "$@"
+            ;;
+    esac
 }
 
-ssh() {
+function ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
     tmux rename-window -- "$1"
     command ssh "$@"
-    tmux set-window-option automatic-rename "on" 1>/dev/null
+    tmux set-window-option automatic-rename on
   else
     command ssh "$@"
   fi
@@ -152,18 +130,20 @@ ssh() {
 
 which pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 [ -d $HOME/.rvm/bin ] && export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
 [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ] && source "$HOME/google-cloud-sdk/path.zsh.inc"
-
-# The next line enables shell command completion for gcloud.
 [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ] && source "$HOME/google-cloud-sdk/completion.zsh.inc"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+if [ -d $HOME/dotfiles/fzf ]; then
+    source $HOME/dotfiles/fzf/shell/completion.zsh
+    source $HOME/dotfiles/fzf/shell/key-bindings.zsh
+fi
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
