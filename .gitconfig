@@ -22,3 +22,8 @@
 	prompt = false
 [rebase]
 	updateRefs = true
+[credential]
+	helper = cache --timeout 7200
+	helper = oauth
+[alias]
+	pushf = push -f --force-with-lease --force-if-includes
