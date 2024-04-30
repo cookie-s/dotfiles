@@ -11,6 +11,13 @@ hook_add = '''
 nnoremap <silent> <leader>q :Bdelete<CR>
 '''
 
+
+[[plugins]]
+repo = 'embear/vim-localvimrc'
+hook_add = '''
+let g:localvimrc_sandbox = 0
+'''
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
