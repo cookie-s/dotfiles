@@ -39,4 +39,9 @@ ln -s \
     ~/dotfiles/.gnupg/gpg-agent.conf \
     ~/.gnupg/
 
+mkdir -p ~/.cargo
+ln -s \
+    ~/dotfiles/.cargo/config.toml \
+    ~/.cargo/
+
 echo "Don't forget to set your GPG key id in ~/.gitconfig.local!"
