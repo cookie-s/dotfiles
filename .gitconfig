@@ -1,27 +1,34 @@
-[user]
-	email = kcz@kcz.sh
-	name = cookie-s
-	#signingkey = ###
-[push]
-	default = tracking
-	autoSetupRemote = true
-[pull]
-	ff = only
+[include]
+	path = ~/.gitconfig.local
+
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore_global
+	whitespace = -trailing-space
+[user]
+	email = kcz@kcz.sh
+	name = cookie-s
+	# signingkey = ### expected in ~/.gitconfig.local
+[push]
+	default = upstream
+	autoSetupRemote = true
+[pull]
+	ff = only
 [http]
 	sslVerify = true
 [gpg]
 	program = gpg
 [commit]
-	#gpgsign = true
+	# gpgsign = ### expected in ~/.gitconfig.local
 [diff]
 	tool = vimdiff
+	renames = true
 [difftool]
 	prompt = false
 [rebase]
 	updateRefs = true
+[tag]
+	sort = version:refname
 [credential]
 	helper = cache --timeout 7200
 	helper = oauth

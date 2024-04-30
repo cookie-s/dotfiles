@@ -39,4 +39,4 @@ ln -s \
     ~/dotfiles/.gnupg/gpg-agent.conf \
     ~/.gnupg/
 
-echo "don't forget to set your GPG key id in .gitconfig!"
+echo "Don't forget to set your GPG key id in ~/.gitconfig.local!"
