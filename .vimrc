@@ -32,7 +32,7 @@ endif
 filetype plugin indent on
 syntax enable
 set background=dark
-colorscheme solarized " https://github.com/altercation/vim-colors-solarized
+colorscheme solarized8 " https://github.com/lifepillar/vim-solarized8
 
 if has("patch-7.4-2201")
     set signcolumn=yes

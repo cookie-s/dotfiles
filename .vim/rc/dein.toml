@@ -11,7 +11,6 @@ hook_add = '''
 nnoremap <silent> <leader>q :Bdelete<CR>
 '''
 
-
 [[plugins]]
 repo = 'embear/vim-localvimrc'
 hook_add = '''
@@ -71,7 +70,12 @@ let g:airline_theme='solarized_flood'
 repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
-repo = 'altercation/vim-colors-solarized'
+repo = 'lifepillar/vim-solarized8'
+rev  = 'neovim'
+if   = '''has('nvim')'''
+[[plugins]] # TODO: unnecessary?
+repo = 'lifepillar/vim-solarized8'
+if   = '''!has('nvim')'''
 # colorscheme is in .vimrc
 
 [[plugins]]
