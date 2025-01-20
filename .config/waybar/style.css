@@ -1,0 +1,46 @@
+/* https://github.com/Alexays/Waybar/wiki/Styling */
+
+* {
+  font-size: 28px;
+  font-family: "Hack", "Regular";
+  padding: 0 5px;
+}
+
+window#waybar {
+  background: gray;
+}
+
+.modules-left {
+  border-radius: 0 10px 10px 0;
+  background: white;
+}
+
+.modules-center {
+  border-radius: 10px;
+  background: white;
+}
+
+.modules-right {
+  border-radius: 10px 0 0 10px;
+  background: white;
+}
+
+#clock {
+  color: purple;
+}
+
+/* wlr/taskbar */
+#taskbar button.active {
+  background: #ddd;
+}
+
+/* sway/mode */
+#mode {
+  background: red;
+  color: white;
+}
+
+/* sway/workspaces */
+#workspaces button.focused {
+  background: #ddd;
+}
