@@ -6,7 +6,7 @@ set $down j
 set $up k
 set $right l
 set $term foot
-set $menu "wmenu-run -f 'Hack 20'"
+set $menu "rofi -show drun"
 
 font Hack 18
 
@@ -19,8 +19,8 @@ for_window [title="Adobe Flash Player.*"] floating enable
 
 ### Idle configuration
 exec swayidle -w \
-  timeout 60 'swaylock -f -c 000000' \
-  timeout 65 'swaymsg "output * dpms off"' \
+  timeout 300 'swaylock -f -c 000000' \
+  timeout 310 'swaymsg "output * dpms off"' \
   resume 'swaymsg "output * dpms on"' \
   before-sleep 'swaylock -f -c 000000'
 
