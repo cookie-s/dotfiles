@@ -74,12 +74,12 @@ alias gdb='gdb -q'
 alias g++='g++ -Wall'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 
-alias dispoff="xset dpms force standby"
 alias hdmiout="xrandr --output HDMI1 --auto"
 alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
-alias httpserv="ruby -rsinatra -e 'set :bind, \"127.0.0.1\"; set :public_folder, \"./\"; get(\"/\"){\"Hello world\"}'"
 alias aslr-dis='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias aslr-en='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
+alias recordscreen='wf-recorder -g "$(slurp)"'
+
 
 alias k="kubectl"
 
