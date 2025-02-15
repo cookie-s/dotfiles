@@ -15,7 +15,10 @@ titlebar_padding 10 10
 ### Output configuration
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
+# See sway(5) CRITERIA
+# hint: swaymsg -t get_tree | cat
 for_window [class="Flashplayer.*"] floating enable
+for_window [class="flashplayer.*"] floating enable
 for_window [app_id="rs.ruffle.Ruffle"] floating enable
 
 ### Idle configuration
