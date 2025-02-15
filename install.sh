@@ -4,9 +4,8 @@ git submodule init
 git submodule sync
 git submodule update
 
-mkdir -p ~/.vim ~/.vimbackup
-
-ln -s ~/dotfiles/.bashrc \
+ln -s --backup=off \
+    ~/dotfiles/.bashrc \
     ~/dotfiles/.gdbinit \
     ~/dotfiles/.gitconfig \
     ~/dotfiles/.gitignore_global \
@@ -21,13 +20,16 @@ ln -s ~/dotfiles/.bashrc \
     ~/dotfiles/.xprofile \
     ~/dotfiles/.gemrc \
     ~
+
 mkdir -p ~/.config
 ln -s \
     ~/dotfiles/.config/nvim \
     ~/dotfiles/starship.toml \
     ~/.config
 
-ln -s ~/dotfiles/.vim/indent \
+mkdir -p ~/.vim ~/.vimbackup
+ln -s \
+    ~/dotfiles/.vim/indent \
     ~/dotfiles/.vim/syntax \
     ~/dotfiles/.vim/ftplugin \
     ~/dotfiles/.vim/rc \
@@ -43,5 +45,9 @@ mkdir -p ~/.cargo
 ln -s \
     ~/dotfiles/.cargo/config.toml \
     ~/.cargo/
+
+mkdir -p ~/.local/bin
+ln -s ~/dotfiles/.local/bin/* \
+    ~/.local/bin/
 
 echo "Don't forget to set your GPG key id in ~/.gitconfig.local!"
