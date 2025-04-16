@@ -15,3 +15,5 @@ alias emacs=$EDITOR
 export GOHOME=$HOME/go
 
 export CLOUDSDK_PYTHON=python3
+
+gpg --card-status > /dev/null 2>&1 && export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
