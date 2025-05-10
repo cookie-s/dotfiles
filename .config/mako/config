@@ -1,0 +1,8 @@
+width=500
+height=500
+font=monospace 26
+border-size=10
+border-color=#FF000088
+background-color=#FF9900FF
+outer-margin=30
+anchor=bottom-left

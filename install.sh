@@ -24,6 +24,7 @@ ln -s --backup=off \
 mkdir -p ~/.config
 ln -s \
     ~/dotfiles/.config/nvim \
+    ~/dotfiles/.config/mako \
     ~/dotfiles/starship.toml \
     ~/.config
 
