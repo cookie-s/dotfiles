@@ -7,7 +7,7 @@
 	whitespace = -trailing-space
 [user]
 	email = kcz@kcz.sh
-	name = cookie-s
+	name = kcz
 	# signingkey = ### expected in ~/.gitconfig.local
 [push]
 	default = upstream
