@@ -25,6 +25,7 @@ mkdir -p ~/.config
 ln -s \
     ~/dotfiles/.config/nvim \
     ~/dotfiles/.config/mako \
+    ~/dotfiles/.config/zed \
     ~/dotfiles/starship.toml \
     ~/.config
 
