@@ -34,3 +34,5 @@
 	helper = oauth
 [alias]
 	pushf = push -f --force-with-lease --force-if-includes
+[safe]
+	# expected in ~/.gitconfig.local
