@@ -79,6 +79,7 @@ alias v4lload='LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so'
 alias aslr-dis='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias aslr-en='echo 2 | sudo tee /proc/sys/kernel/randomize_va_space'
 alias recordscreen='wf-recorder -g "$(slurp)"'
+alias ghidra="_JAVA_AWT_WM_NONREPARENTING=1 ghidra" # https://github.com/NationalSecurityAgency/ghidra/issues/44
 
 
 alias k="kubectl"
