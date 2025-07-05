@@ -26,6 +26,7 @@ ln -s \
     ~/dotfiles/.config/nvim \
     ~/dotfiles/.config/mako \
     ~/dotfiles/.config/zed \
+    ~/dotfiles/.config/lazygit \
     ~/dotfiles/starship.toml \
     ~/.config
 
