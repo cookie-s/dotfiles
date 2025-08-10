@@ -1,2 +1,4 @@
 git:
   overrideGpg: true # Ensure gpg-agent is used
+gui:
+  useHunkSelectionMode: false # line mode
