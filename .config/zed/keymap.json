@@ -1,15 +1,44 @@
 // Zed keymap
 //
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
+// Zed documentation: https://zed.dev/docs/key-bindings
 //
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
+// - `zed: open default keymap`
+// - `zed: open keymap editor`
+// - `zed: open key context view`
+
 [
+  // https://www.ollydbg.de/quickst.htm
   {
-    "context": "Workspace",
     "bindings": {
-      "shift shift": "file_finder::Toggle"
+      "f8": "debugger::StepOver",
+      "f7": "debugger::StepInto",
+      "ctrl-f9": "debugger::StepOut",
+      "shift-f11": null
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "f2": "editor::ToggleBreakpoint"
+    }
+  },
+
+  // project panel
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "shift-n": "project_panel::NewFile",
+      "shift-k": "project_panel::NewDirectory",
+      "d": ["project_panel::Trash", { "skip_prompt": false }],
+      "o": "project_panel::RevealInFileManager",
+      "r": "project_panel::Rename",
+      "y y": "workspace::CopyRelativePath"
+    }
+  },
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "d": ["project_panel::Trash", { "skip_prompt": false }] // overwrite
     }
   }
 ]
