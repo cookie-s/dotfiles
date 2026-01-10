@@ -112,7 +112,7 @@ call denite#custom#var('grep', {
 " https://qiita.com/pocari/items/1b76c211d5555fa87834
 nnoremap [denite] <Nop>
 nmap \u [denite]
-nnoremap <silent> [denite]f  :<C-u>Denite file/rec -split=floating<CR>
+nnoremap <silent> [denite]f  :<C-u>Denite file/rec <CR>
 nnoremap <silent> [denite]g  :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
 nnoremap <silent> [denite]r  :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
 nnoremap <silent> [denite]b  :<C-u>Denite -buffer-name=buffer buffer<CR>
@@ -201,6 +201,8 @@ function! s:defx_my_settings() abort
   \ defx#do_action('print')
   nnoremap <silent><buffer><expr> cd
   \ defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer><expr> <C-f>
+  \ defx#do_action('change_filtered_files')
 endfunction
 
 call defx#custom#option('_', {
