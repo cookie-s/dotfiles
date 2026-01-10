@@ -21,7 +21,7 @@
 [commit]
 	# gpgsign = ### expected in ~/.gitconfig.local
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
 	renames = true
 [difftool]
 	prompt = false
