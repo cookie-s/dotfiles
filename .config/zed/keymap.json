@@ -13,14 +13,14 @@
       "f8": "debugger::StepOver",
       "f7": "debugger::StepInto",
       "ctrl-f9": "debugger::StepOut",
-      "shift-f11": null
-    }
+      "shift-f11": null,
+    },
   },
   {
     "context": "Editor",
     "bindings": {
-      "f2": "editor::ToggleBreakpoint"
-    }
+      "f2": "editor::ToggleBreakpoint",
+    },
   },
 
   // project panel
@@ -29,16 +29,6 @@
     "bindings": {
       "shift-n": "project_panel::NewFile",
       "shift-k": "project_panel::NewDirectory",
-      "d": ["project_panel::Trash", { "skip_prompt": false }],
-      "o": "project_panel::RevealInFileManager",
-      "r": "project_panel::Rename",
-      "y y": "workspace::CopyRelativePath"
-    }
+    },
   },
-  {
-    "context": "(ProjectPanel && not_editing)",
-    "bindings": {
-      "d": ["project_panel::Trash", { "skip_prompt": false }] // overwrite
-    }
-  }
 ]
