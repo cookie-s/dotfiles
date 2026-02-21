@@ -2,3 +2,25 @@ git:
   overrideGpg: true # Ensure gpg-agent is used
 gui:
   useHunkSelectionMode: false # line mode
+customCommands:
+  - key: '#'
+    context: 'localBranches'
+    prompts:
+      - type: 'input'
+        title: 'pr#'
+        key: 'PRNumber'
+    command: 'gh pr checkout {{ .Form.PRNumber | quote }}'
+    loadingText: 'Checking out PR {{ .Form.PRNumber }}'
+  - key: 'O'
+    context: 'files, commitFiles'
+    command: 'tmux new-window -c $([[ -d {{ .SelectedPath | quote }} ]] && echo {{ .SelectedPath | quote }} || echo $(dirname {{ .SelectedPath | quote }}))'
+  - key: 'B'
+    command: 'tig blame -- {{ .SelectedFile.Name | quote }}'
+    context: files
+    description: 'Blame'
+    output: terminal
+  - key: 'B'
+    command: 'tig blame {{ .SelectedSubCommit.Sha }} -- {{ .SelectedCommitFile.Name | quote }}'
+    context: commitFiles
+    description: 'Blame'
+    output: terminal
