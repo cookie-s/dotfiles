@@ -1,7 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
 git:
   overrideGpg: true # Ensure gpg-agent is used
 gui:
-  useHunkSelectionMode: false # line mode
+  useHunkModeInStagingView: false # line mode
 customCommands:
   - key: '#'
     context: 'localBranches'
