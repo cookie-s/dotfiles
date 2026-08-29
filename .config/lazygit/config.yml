@@ -10,7 +10,7 @@ customCommands:
         title: 'pr#'
         key: 'PRNumber'
     command: 'gh pr checkout {{ .Form.PRNumber | quote }}'
-    loadingText: 'Checking out PR {{ .Form.PRNumber }}'
+    loadingText: 'Checking out PR'
   - key: 'O'
     context: 'files, commitFiles'
     command: 'tmux new-window -c $([[ -d {{ .SelectedPath | quote }} ]] && echo {{ .SelectedPath | quote }} || echo $(dirname {{ .SelectedPath | quote }}))'
