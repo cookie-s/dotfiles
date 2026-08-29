@@ -1,7 +1,5 @@
 export SHELL=/bin/zsh
 
-which chromium >/dev/null && export BROWSER="chromium"
-
 export PAGER="less"
 export LESS="-R"
 
