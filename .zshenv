@@ -2,6 +2,7 @@ export SHELL=/bin/zsh
 
 export PAGER="less"
 export LESS="-R"
+export SYSTEMD_LESS="$LESS"
 
 export GREPOPTIONS="--binary-files=without-match --directories=recurse --exclude=\*.tmp --exclude-dir=.svn --exclude-dir=.git --color=auto"
 
