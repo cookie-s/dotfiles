@@ -2,8 +2,6 @@
 
 git:
   overrideGpg: true # Ensure gpg-agent is used
-gui:
-  useHunkModeInStagingView: false # line mode
 customCommands:
   - key: '#'
     context: 'localBranches'
