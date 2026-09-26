@@ -147,6 +147,7 @@ mode "resize" {
     bindsym Ctrl+bracketleft mode "default"
 }
 bindsym $mod+r mode "resize"
+bindsym $mod+t sticky toggle
 #
 # Utilities:
 #
