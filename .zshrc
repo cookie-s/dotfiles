@@ -84,13 +84,12 @@ alias ghidra="_JAVA_AWT_WM_NONREPARENTING=1 ghidra" # https://github.com/Nationa
 
 alias k="kubectl"
 
-alias -s html=chromium
-alias -s xhtml=chromium
 alias -s gif=feh
 alias -s jpg=feh
 alias -s jpeg=feh
 alias -s png=feh
 alias -s bmp=feh
+
 alias -s mp3=mplayer
 alias -s m4a=mplayer
 alias -s ogg=mplayer
