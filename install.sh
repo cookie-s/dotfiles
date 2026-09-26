@@ -28,6 +28,7 @@ ln -s \
     ~/dotfiles/.config/zed \
     ~/dotfiles/.config/lazygit \
     ~/dotfiles/.config/starship.toml \
+    ~/dotfiles/.config/mimeapps.list \
     ~/.config
 
 mkdir -p ~/.vim ~/.vimbackup
