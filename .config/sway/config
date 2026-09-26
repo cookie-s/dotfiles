@@ -20,6 +20,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 for_window [class="Fpd"] floating enable
 for_window [class="Flashplayer.*"] floating enable
 for_window [class="flashplayer.*"] floating enable
+for_window [app_id="flashplayer_.*"] floating enable
 for_window [app_id="rs.ruffle.Ruffle"] floating enable
 
 ### Idle configuration
